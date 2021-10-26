@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../css/stls.css" />
+    <title>Personal Profile</title>
+  </head>
+  <body class="back1">
+    <!-- Tabs -->
+    <div class="section3">
+      <div class="card back1">
+        <div class="text" style="margin-left: 20px">
+          <p id="txt1" style="opacity: 1">Personal Details</p>
+        </div>
+        <div class="inside">
+          <a href="personal.html" style="margin-left: 90px"
+            ><div class="icon" style="background-color: #7289da"></div
+          ></a>
+        </div>
+      </div>
+
+      <div class="card back1">
+        <div class="text" style="margin-left: 360px">
+          <p id="txt2">Exam Details</p>
+        </div>
+        <div class="inside" style="margin-left: -145px">
+          <div class="line" id="line1"></div>
+          <a href="exam_detail.html"
+            ><div
+              class="icon"
+              onmouseover="mouseOver2()"
+              onmouseout="mouseOut2()"
+            ></div
+          ></a>
+        </div>
+      </div>
+
+      <div class="card back1">
+        <div class="text" style="margin-left: 300px">
+          <p id="txt3">Exam Instruction</p>
+        </div>
+        <div class="inside" style="margin-left: -170px">
+          <div class="line" id="line2"></div>
+          <a href="instruction.html"
+            ><div
+              class="icon"
+              onmouseover="mouseOver3()"
+              onmouseout="mouseOut3()"
+            ></div
+          ></a>
+        </div>
+      </div>
+    </div>
+    <!-- Tab End Here -->
+
+    <!-- Content Details full length -->
+    <div class="detail">
+      <!--IMAGE CARD LEFT SIDE-->
+      <div class="card left-card">
+        <div class="image">
+          <img src="../img/2.png" alt="image" />
+        </div>
+      </div>
+      <!--IMAGE CARD END HERE-->
+
+      <!---RIGHT SIDE CARD-->
+      <div class="card right-card">
+        <div class="heading">
+          <p class="text-heading">Personal Details</p>
+          <p class="sub-heading">Verify Your Personal Details  </p>
+        </div>
+        <!--LABEL FORM START-->
+        <div class="fill-up-form">
+          <div class="form">
+            <input
+              type="text"
+              id="name"
+              class="form_input"
+              autocomplete="off"
+              placeholder=" "
+              value="CSE"
+              readonly
+            />
+            <label for="name" class="form_label">Name</label>
+          </div>
+          <br />
+          <div class="form">
+            <input
+              type="text"
+              id="er_no"
+              class="form_input"
+              autocomplete="off"
+              placeholder=" "
+              value="Student name"
+              readonly
+            />
+            <label for="er_no" class="form_label">Enrollment No</label>
+          </div>
+          <br />
+          <div class="form">
+            <input
+              type="text"
+              id="course"
+              class="form_input"
+              autocomplete="off"
+              placeholder=" "
+              value="ER_NO"
+              readonly
+            />
+            <label for="course" class="form_label">Course</label>
+          </div>
+          <br />
+          <div class="form">
+            <input
+              type="text"
+              id="semester"
+              class="form_input"
+              autocomplete="off"
+              placeholder=" "
+              value="5"
+              readonly
+            />
+            <label for="semester" class="form_label">Semester</label>
+          </div>
+          <br />
+          <div class="form">
+            <input
+              type="text"
+              id="email"
+              class="form_input"
+              autocomplete="off"
+              placeholder=" "
+              value="____@juetguna.in"
+              readonly
+            />
+            <label for="email" class="form_label">Email</label>
+          </div>
+        </div>
+        <!--LABEL FORM ENDS HERE-->
+
+        <!-- BUTTONS -->
+        <div class="btns">
+          <div class="btn btn-dark bt1" onclick="location.href=''">
+            <center>Prev</center>
+          </div>
+          <div
+            class="btn btn-dark bt2"
+            onclick="location.href='exam_detail.html'"
+          >
+            <center>Next</center>
+          </div>
+        </div>
+        <!-- BUTTONS ENDS -->
+      </div>
+      <!--RIGHT SIDE ENDS-->
+    </div>
+    <!-- FULL CARD ENDS -->
+
+    <!--SCRIPT-->
+    <script>
+          function mouseOver1() {
+        var x = document.getElementById("txt1");
+          x.style.opacity = "1";
+          x.style.transition="0.3s";
+
+          }
+
+         function mouseOut1() {
+        var x = document.getElementById("txt1");
+          x.style.opacity = "0.3";
+      }
+
+        function mouseOver2() {
+        var x = document.getElementById("txt2");
+          x.style.opacity = "1";
+          x.style.transition="0.3s";
+
+            var y=document.getElementById("line1");
+            y.style.background-color="#7289da";
+          }
+
+         function mouseOut2() {
+        var x = document.getElementById("txt2");
+          x.style.opacity = "0.3";
+      }
+
+        function mouseOver3() {
+        var x = document.getElementById("txt3");
+          x.style.opacity = "1";
+          x.style.transition="0.3s";
+          }
+
+         function mouseOut3() {
+        var x = document.getElementById("txt3");
+          x.style.opacity = "0.3";
+      }
+    </script>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

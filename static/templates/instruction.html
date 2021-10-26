@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="path/to/font-awesome/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../css/stls.css" />
+    <title>Document</title>
+  </head>
+  <body class="back1">
+    <!--Progress Bar -->
+
+    <div class="section3">
+      <div class="card back1">
+        <div class="text" style="margin-left: 20px">
+          <p id="txt1">Personal Details</p>
+        </div>
+        <div class="inside">
+          <a href="personal.html" style="margin-left: 90px"
+            ><div
+              class="icon"
+              onmouseover="mouseOver1()"
+              onmouseout="mouseOut1()"
+              style="background-color: #7289da"
+            ></div
+          ></a>
+        </div>
+      </div>
+
+      <div class="card back1">
+        <div class="text" style="margin-left: 360px">
+          <p id="txt2">Exam Details</p>
+        </div>
+        <div class="inside" style="margin-left: -145px">
+          <div class="line" id="line1" style="background-color: #7289da"></div>
+          <a href="exam_detail.html"
+            ><div
+              class="icon"
+              onmouseover="mouseOver2()"
+              onmouseout="mouseOut2()"
+              style="background-color: #7289da"
+            ></div
+          ></a>
+        </div>
+      </div>
+
+      <div class="card back1">
+        <div class="text" style="margin-left: 300px">
+          <p id="txt3" style="opacity: 1">Exam Instruction</p>
+        </div>
+        <div class="inside" style="margin-left: -170px">
+          <div class="line" id="line2" style="background-color: #7289da"></div>
+          <a href="instruction.html"
+            ><div class="icon" style="background-color: #7289da"></div
+          ></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab End Here -->
+
+    <!-- Content Details full length -->
+    <div class="detail">
+      <!--IMAGE CARD LEFT SIDE-->
+      <div class="card left-card">
+        <div class="image">
+          <img src="../img/4.png" alt="image" />
+        </div>
+      </div>
+      <!--IMAGE CARD END HERE-->
+
+      <!---RIGHT SIDE CARD-->
+      <div class="card right-card">
+        <div class="heading">
+          <p class="text-heading">Exam Instructions</p>
+          <p class="sub-heading">Read the Instructions Carefully</p>
+        </div>
+        <div class="instructions align">
+          <table class="table table-borderless">
+            <tr>
+              <td><li></li></td>
+              <td>
+                Arrive at the examination venue at least 15 minutes before the
+                start of the examination / 35 minutes before a digital
+                examination.
+              </td>
+            </tr>
+            <tr>
+              <td><li></li></td>
+              <td>
+                The examination starts at the moment the book control begins,
+                and you must therefore be present by 8.20 a.m. for regular
+                written examinations and 8.10 a.m. at digital examinations.
+              </td>
+            </tr>
+            <tr>
+              <td><li></li></td>
+              <td>
+                When using a laptop at digital examinations, the laptop has to
+                be set up as soon as possible. If you are taking a law exam, the
+                laptop must be set up before the book control.
+              </td>
+            </tr>
+            <tr>
+              <td><li></li></td>
+              <td>
+                Coats, backpacks, bags, etc. must be placed as directed. Mobile
+                phones, mp3 players, smartwatches and other electronic devices
+                must be turned off and put away, and cannot be stored in coats
+                or pockets.
+              </td>
+            </tr>
+            <tr>
+              <td><li></li></td>
+              <td>
+                If support material, other than that which is specifically
+                permitted, is found at or by the desk, it may be treated as an
+                attempt to cheat and relevant procedures for cheating will be
+                followed.
+              </td>
+            </tr>
+            <tr>
+              <td><li></li></td>
+              <td>
+                The head invigilator will provide information about examination
+                support materials that you are permitted to use during the
+                examination. All dictionaries must be approved by the faculty
+                before the exam and will be handed out in the exam venue by the
+                invigilators.
+              </td>
+            </tr>
+            <tr>
+              <td><li></li></td>
+              <td>
+                Please switch off your mobile phones and keep it in your
+                bags/hand it over to the invigilator as soon as you enter the
+                examination hall. If any electronic gadget is found to be
+                possessed by the student, the same shall be confiscated and
+                submitted with the Academic Cell along with the identity
+                card/Admit Card.
+              </td>
+            </tr>
+            <tr>
+              <td><li></li></td>
+              <td>
+                Students are not allowed to stand outside the examination hall
+                after the first bell. Students are generally not permitted to
+                enter the examination hall after the second bell. Genuine late
+                comers will be allowed to enter the hall, but only in the first
+                half an hour.
+              </td>
+            </tr>
+            <tr>
+              <td><li></li></td>
+              <td>
+                Students are not permitted to leave the examination hall in the
+                first half an hour.
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- BUTTONS -->
+
+        <div class="btns">
+          <div
+            class="btn btn-dark bt3"
+            onclick="location.href='exam_detail.html'"
+          >
+            <center>Prev</center>
+          </div>
+          <div
+            class="btn btn-dark bt4"
+            onclick="location.href='student_dashboard.html'"
+          >
+            <center>Proceed</center>
+          </div>
+        </div>
+        <!-- BUTTONS ENDS -->
+      </div>
+      <!--RIGHT SIDE ENDS-->
+    </div>
+    <!-- FULL CARD ENDS -->
+
+    <!--SCRIPT-->
+    <script>
+      function mouseOver1() {
+        var x = document.getElementById("txt1");
+        x.style.opacity = "1";
+        x.style.transition = "0.3s";
+      }
+
+      function mouseOut1() {
+        var x = document.getElementById("txt1");
+        x.style.opacity = "0.3";
+      }
+
+      function mouseOver2() {
+        var x = document.getElementById("txt2");
+        x.style.opacity = "1";
+        x.style.transition = "0.3s";
+      }
+
+      function mouseOut2() {
+        var x = document.getElementById("txt2");
+        x.style.opacity = "0.3";
+      }
+
+      function mouseOver3() {
+        var x = document.getElementById("txt3");
+        x.style.opacity = "1";
+        x.style.transition = "0.3s";
+      }
+
+      function mouseOut3() {
+        var x = document.getElementById("txt3");
+        x.style.opacity = "0.3";
+      }
+    </script>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

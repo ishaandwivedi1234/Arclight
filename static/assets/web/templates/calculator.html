@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <title>Document</title>
+    <style>
+    .card{width:320px;margin:20px auto;border-radius:20px;border:2px solid white}
+    .back1{background-color:grey;}
+    .back2{background-color:rgb(44,43,61);}
+    .heading{text-align:center;color:rgb(255,117,85);padding:10px;font-size:24px;font-weight:bold}
+    .back3{background-color:rgb(44,43,61)}
+    
+         .buttons
+         {padding:8px;
+         background-color:rgb(44,43,61);
+         color: white;
+         font-size:20px;
+         font-weight:bold;
+         border: 2px solid grey;
+         width:50px;
+         border-radius:40px;
+         }
+ 
+         .buttons:hover{ background-color:rgb(232,221,201);color:black;transition:0.4s}
+         .equal{background-color:rgb(255,117,85);border:2px solid rgb(255,117,85) }
+         .equal:hover{  background-color:rgb(232,221,201);color:black;transition:0.4s;border:2px solid rgb(232,221,201);}
+         #result{ width:100%;height:50px;border:none; background-color:rgb(44,43,61)}
+         .clear{color:rgb(232,221,201);width:100%;;border-radius:15px;padding:5px;font-size:20px;background-color:rgb(44,43,61);font-weight:bold;border:3px solid rgb(255,117,85)}
+         .clear:hover{
+            background-color:rgb(232,221,201);color:black;transition:0.4s;border:3px solid rgb(232,221,201);
+         }
+         .bt{background-color:rgb(40,39,60)}
+        .input{color:rgb(232,221,201);font-size:18px;font-weight:bold}
+    </style>
+</head>
+<body class="back1">
+<div class="card back2">
+<div class="heading">Calculator</div>
+
+ <table class="table back2">
+  <tr>
+      <td colspan="4"><input class="input" type="text" id="result"/></td>
+  </tr>
+  <tr>
+  <td class="gap"><input class="buttons" type="button" value="7" onclick="dis('7')"/></td>
+  <td class="gap"><input  class="buttons" type="button" value="8" onclick="dis('8')"/></td>
+  <td class="gap"><input class="buttons" type="button" value="9" onclick="dis('9')"/></td>
+  <td class="gap"><input class="buttons bt" type="button" value="/" onclick="dis('/')"/></td>
+  </tr>
+  <tr>
+  <td class="gap"><input class="buttons" type="button" value="4" onclick="dis('4')"/></td>
+  <td class="gap"><input class="buttons" type="button" value="5" onclick="dis('5')"/></td>
+  <td class="gap"><input class="buttons" type="button" value="6" onclick="dis('6')"/></td>
+  <td class="gap"><input class="buttons bt" type="button" value="*" onclick="dis('*')"/></td>
+  </tr>
+  <tr>
+  <td class="gap"><input class="buttons" type="button" value="1" onclick="dis('1')"/></td>
+  <td class="gap"><input class="buttons" type="button" value="2" onclick="dis('2')"/></td>
+  <td class="gap"><input class="buttons" type="button" value="3" onclick="dis('3')"/></td>
+  <td class="gap"><input class="buttons bt" type="button" value="+" onclick="dis('+')"/></td>
+  </tr>
+  <tr>
+  <td class="gap"><input class="buttons bt" type="button" value="." onclick="dis('.')"/></td>
+  <td class="gap"><input class="buttons" type="button" value="0" onclick="dis('0')"/></td>
+  <td class="gap"><input class="buttons equal" type="button" value="=" onclick="solve()"/></td>
+  <td class="gap"><input class="buttons bt" type="button" value="-" onclick="dis('-')"/></td>
+  </tr>
+  <tr>  <td colspan="4"><input class="clear" type="button" value="clear" onclick="clr()"/> </td></tr>
+ </table>
+</div>
+<script>
+function dis(val)
+{
+document.getElementById("result").value+=val
+}
+function solve()
+{
+let x=document.getElementById("result").value
+let y=eval(x)
+document.getElementById("result").value=y
+}
+function clr()
+{
+  document.getElementById("result").value=""
+
+}
+
+
+</script>
+
+    
+</body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</html>

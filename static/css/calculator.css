@@ -1,0 +1,89 @@
+table,
+tr,
+td {
+  border: none;
+  margin: 0px;
+}
+
+td {
+  padding: 0px;
+  margin: 0px;
+}
+.card {
+  width: 320px;
+  margin: 20px auto;
+  border-radius: 20px;
+  border: none;
+}
+.back1 {
+  background-color: transparent;
+}
+.back2 {
+  background-color: transparent;
+}
+.heading {
+  text-align: center;
+  color: rgb(255, 117, 85);
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.back3 {
+  background-color: rgb(44, 43, 61);
+}
+
+.buttons {
+  background-color: rgb(44, 43, 61, 0.6);
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+  border: none;
+  width: 5.5vw;
+  padding: 20px;
+}
+
+.buttons:hover {
+  background-color: rgb(232, 221, 201);
+  color: black;
+  transition: 0.4s;
+}
+.equal {
+  background-color: rgb(255, 117, 85);
+  border: 2px solid rgb(255, 117, 85);
+}
+.equal:hover {
+  background-color: rgb(232, 221, 201);
+  color: black;
+  transition: 0.4s;
+  border: 2px solid rgb(232, 221, 201);
+}
+#result {
+  width: 100%;
+  height: 50px;
+  border: none;
+  background-color: rgb(44, 43, 61);
+}
+.clear {
+  color: rgb(232, 221, 201);
+  width: 100%;
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  background-color: rgb(44, 43, 61);
+  font-weight: bold;
+}
+.clear:hover {
+  background-color: rgb(232, 221, 201);
+  color: black;
+  transition: 0.4s;
+  border: 3px solid rgb(232, 221, 201);
+}
+.bt {
+  background-color: rgb(40, 39, 60);
+}
+.input {
+  color: rgb(232, 221, 201);
+  font-size: 18px;
+  font-weight: bold;
+}
