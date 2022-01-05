@@ -1,6 +1,4 @@
-questions = ['''A 2m long stick, when it is at rest, moves past an observer on the ground with a speed of 0.5c.
-(a) What is the length measured by the observer ?
-(b) If the same stick moves with the velocity of 0.05c what would be its length measured by the observer ''','''  A small lantern of mass 100 gm is hanged from the pole of a bullock cart using a massless string. What is the tension in the string, (Assume that cart moves smoothly).
+questions = ['''The number of edges from the root to the node is called __________ of the tree.''','''  A small lantern of mass 100 gm is hanged from the pole of a bullock cart using a massless string. What is the tension in the string, (Assume that cart moves smoothly).
 
 (a) when the bullock cart is at rest,
 (b) moves with uniform velocity of 3 m/s
@@ -14,11 +12,50 @@ Furthermore, isolated extremely heavy falls may also bombard Assam and Meghalaya
 
 answers = ["","answer 2","","asnwer 4"]
 
+
+options=[
+	[
+		'4 cm ',
+		'2 cm',
+		'1 cm',
+		'9 cm '
+	],
+	[
+		'is',
+		'are',
+		'the',
+		'none'
+	],
+	[
+		'is',
+		'are',
+		'the',
+		'none'
+	],
+	
+	[
+		'is',
+		'are',
+		'the',
+		'none'
+	],
+	[
+		'is',
+		'are',
+		'the',
+		'none'
+	],
+	
+
+]
+
+
+
 time_of_exam = "23:15:00"
 student_name = "Ishaan Dwivedi"
 en_no = "191b130"
 number_of_questions=len(questions)
-max_col = 10
+max_col = 15
 max_row = number_of_questions // max_col
 if (number_of_questions % max_col) > 0 :
 	max_row = max_row + 1
@@ -30,9 +67,9 @@ revisit= [4]
 current_question  = 0
 
 # timer data
-month = 'Aug'
-day = '28'
+month = 'Dec'
+day = '4'
 year = '2021'
-time = '20:40:00'
+time = '2:00:00'
 
 

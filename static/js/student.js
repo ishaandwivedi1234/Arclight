@@ -78,7 +78,7 @@ function setRowColValue() {
         else if (revisit.includes(question))
           div.className = "question__block__revisit";
         else div.className = "question__block__pending";
-
+        div.id = "question_" + question;
         newRow.appendChild(div);
         question += 1;
       }
@@ -92,12 +92,21 @@ function setRowColValue() {
 function initQuestions() {
   eel.initQuestions()(function (ret) {
     questions = ret[0];
+    revisit = ret[3];
     question_number = getQuestionNumber();
     var questionText = document.getElementById("question_text");
     questionText.innerHTML = questions[question_number];
 
     var question_head = document.getElementById("question__number");
     question_head.innerHTML = "Question " + parseInt(question_number + 1);
+    var revisit_head = document.getElementById("revisit");
+    if (revisit.includes(question_number + 1)) {
+      revisit_head.innerHTML = "Unmark Revisit";
+      revisit_head.addEventListener("click", unRevisit);
+    } else {
+      revisit_head.innerHTML = "Revisit";
+      revisit_head.addEventListener("click", setRevisit);
+    }
     answers = ret[2];
     var answerText = document.getElementById("answer_text");
     answerText.value = answers[question_number];
@@ -110,6 +119,46 @@ function saveAnswers() {
   var ans = document.getElementById("answer_text").value;
   console.log(ans);
   eel.saveAnswers(question_number, ans);
+}
+
+function setRevisit() {
+  console.log("revisit");
+  question_number = getQuestionNumber() + 1;
+  document.getElementById("question_" + question_number).className =
+    "question__block__revisit";
+  var revisit_head = document.getElementById("revisit");
+
+  revisit_head.innerHTML = "Unmark Revisit";
+  revisit_head.addEventListener("click", setRevisit);
+
+  eel.setRevisit(question_number);
+  location.reload();
+}
+function unRevisit() {
+  question_number = getQuestionNumber() + 1;
+
+  eel.getDoneList()(function (doneList) {
+    console.log("unrevisit");
+    if (doneList.includes(question_number)) {
+      document.getElementById("question_" + question_number).className =
+        "question__block__done";
+    } else document.getElementById("question_" + question_number).className = "question__block__pending";
+
+    var revisit_head = document.getElementById("revisit");
+    if (revisit.includes(question_number + 1))
+      revisit_head.innerHTML = "Revisit";
+    revisit_head.onclick = "setRevisit()";
+    location.reload();
+  });
+
+  eel.setUnRevisit(question_number);
+  location.reload();
+}
+function setOption() {
+  eel.initMcqOptions(function (res) {
+    var options = res;
+    options.forEach((element) => {});
+  });
 }
 
 function getQuestionNumber() {
@@ -154,4 +203,15 @@ function openInstructions() {
   else drawerTab.style.display = "none";
 }
 
-// calculator functionality
+function nextQuestion() {
+  console.log("next");
+  eel.getQuestionList()(function (questions) {
+    currenQuestion = getQuestionNumber();
+    next = currenQuestion + 2;
+    if (next <= questions.length && next >= 1) {
+      let url = "/templates/student_dashboard.html" + "?question=" + next;
+      console.log(url);
+      location.replace(url);
+    } else alert("you have visited end !");
+  });
+}

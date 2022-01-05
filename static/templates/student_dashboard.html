@@ -4,6 +4,7 @@
     <title></title>
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/calculator.css" />
+    <link rel="stylesheet" href="../css/mcq.css" />
     <script type="text/javascript" src="../eel.js"></script>
     <script type="text/javascript" src="../js/student.js"></script>
     <script type="text/javascript" src="../js/calculator.js"></script>
@@ -76,11 +77,11 @@
     <div class="content">
       <div class="container dashboard__base">
         <div class="row">
-          <div class="col-lg-5">
+          <div class="col-lg-7">
             <div class="question_card">
               <div class="question_head_options">
                 <span class="question_heading" id="question__number"></span>
-                <span class="next_question"> Revisit</span>
+                <span class="next_question" id ="revisit"> </span>
               </div>
               <br /><br />
               <div id="question_text"></div>
@@ -93,22 +94,31 @@
             </div>
           </div>
 
-          <div class="col-lg-7">
+          <div class="col-lg-5">
             <div class="answer_card">
               <div class="row">
-                <div class="answer_head col-lg-8">Write your answer here</div>
+                <div class="answer_head col-lg-8">Choose correct option </div>
                 <div class="col-lg-4">
                   <div class="side__options">
                     <div class="side_option_icons">
-                      <span onclick="openCalculator()">
+                      <span
+                        onclick="openCalculator()"
+                        type="button"
+                        class="btn"
+                      >
                         <img
                           src="https://img.icons8.com/color/48/4a90e2/calculator--v2.png"
                           height="25px"
                         />
                       </span>
                     </div>
-                    <div class="side_option_icons">
-                      <span onclick="openChat()">
+                    <div class="side_option_icons" type="button" class="btn">
+                      <span
+                        onclick="openChat()"
+                        onclick="openCalculator()"
+                        type="button"
+                        class="btn"
+                      >
                         <img
                           src="https://img.icons8.com/material-rounded/48/26e07f/chat--v1.png"
                           height="25px"
@@ -116,7 +126,12 @@
                       </span>
                     </div>
                     <div class="side_option_icons">
-                      <span onclick="openInstructions()">
+                      <span
+                        type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                      >
                         <img
                           src="https://img.icons8.com/ios-filled/50/ffffff/about.png"
                           height="25px"
@@ -126,17 +141,50 @@
                   </div>
                 </div>
               </div>
-              <div>
-                <br />
-                <textarea
+            
+           <div>
+<div class="wrapper">
+ <input type="radio" name="select" id="option-1" >
+ <input type="radio" name="select" id="option-2">
+ <input type="radio" name="select" id="option-3">
+ <input type="radio" name="select" id="option-4">
+   <label for="option-1" class="option option-1">
+     <div class="dot"></div>
+      <span> Option 1</span>
+      </label>
+   <label for="option-2" class="option option-2">
+     <div class="dot"></div>
+      <span> Option 2</span>
+   </label>
+    <label for="option-3" class="option option-3">
+     <div class="dot"></div>
+      <span> option 3</span>
+   </label>
+    <label for="option-4" class="option option-4">
+     <div class="dot"></div>
+      <span> Option 4</span>
+   </label>
+   
+   
+   
+</div>
+ 
+  
+</div><br><br><br><br><br><br><br><br><br><br><br>
+<button class="option_btn mt-5" onclick="nextQuestion()" id="next">
+                    Next
+                  </button>
+           </div>
+                <!-- <textarea
                   placeholder="Start Typing ... "
                   id="answer_text"
                   onkeyup="saveAnswers()"
-                ></textarea>
+                ></textarea> -->
                 <div class="options">
-                  <br />
-                  <!-- <button class="option_btn">Mark as done</button> -->
-                  <button class="option_btn">Next</button>
+                  <!-- <br /> -->
+                  <!-- <button class="option_btn" onclick="nextQuestion()" id="next">
+                    Next
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -310,7 +358,9 @@
         </div>
 
         <div class="col-lg-3 drawer_tab" id="drawer_tab_instructions">
-          Instruction item
+          <!-- instructions -->
+
+          <div></div>
         </div>
       </div>
     </div>

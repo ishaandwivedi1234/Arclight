@@ -206,6 +206,8 @@ textarea:focus {
   display: inline-block;
   padding: 5px 6px;
   border: 0;
+  float: right;
+
   text-decoration: none;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.1);
@@ -347,6 +349,7 @@ img {
   display: none;
   color: white;
   margin-top: 100px;
+
   /* background: rgba(70, 127, 234, 0.05); */
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(20px);
@@ -398,3 +401,14 @@ img {
   border: none;
   outline: none;
 }
+
+.side__instructions {
+  color: white;
+  max-height: 10vh;
+  height: 10vh;
+  scroll-behavior: auto;
+}
+
+
+
+
