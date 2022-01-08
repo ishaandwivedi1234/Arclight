@@ -212,7 +212,7 @@ section {
   border-color: #7289da;
 }
 
-.login button[type="submit"] {
+.login button[type="button"] {
   font-family: "Montserrat", sans-serif;
   margin-top: 18px;
   background: #7289da;
@@ -223,6 +223,92 @@ section {
   border-radius: 20px;
 }
 
-.login button[type="submit"]:hover {
+.login button[type="button"]:hover {
   background: #82eb90;
+}
+
+/* loader login  */
+
+.loader {
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: none;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.wrapper {
+  position: relative;
+}
+
+.alert {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 30%;
+  /* height: 1vh; */
+  z-index: 3;
+  display: none;
+  float: right;
+  /* display: none; */
+}
+.features {
+  position: relative;
+  z-index: 1;
+}
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 1rem;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.closebtn:hover {
+  color: black;
+}
+
+#login_success {
+  display: none;
+}
+#student_greeting {
+  color: white;
+  font-size: 2rem;
+  margin-left: 10px;
+  margin-top: -50px;
+}
+#info {
+  color: white;
+  font-size: 1rem;
+  margin-left: 10px;
+  font-weight: 300;
+}
+#dashboard_btn {
+  font-family: "Montserrat", sans-serif;
+  margin-top: 18px;
+  background: #21a733;
+  /* background: #7289da; */
+  border: 0;
+  padding: 10px 84px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 20px;
 }

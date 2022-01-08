@@ -9,10 +9,13 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <link rel="stylesheet" type="text/css" href="../css/stls.css"/>
+     <script type="text/javascript" src="../eel.js"></script>
+    <script type="text/javascript" src="../js/exam_info.js"></script>
+
     <title>Exam Details</title>
     
   </head>
-  <body class="back1">
+  <body class="back1" onload="initExamInfo()">
    <div class="section3">
 
 <div class="card back1">
@@ -76,20 +79,20 @@
               <div class="form">
                 <input
                   type="text"
-                  id="er_no"
+                  id="course_code"
                   class="form_input"
                   autocomplete="off"
                   placeholder=" "
                    value="18B241C1"
                   readonly
                 />
-                <label for="er_no" class="form_label">Exam Code</label>
+                <label for="er_no" class="form_label">Course Code</label>
               </div>
               <br>
               <div class="form">
                 <input
                   type="text"
-                  id="course"
+                  id="date"
                   class="form_input"
                   autocomplete="off"
                   placeholder=" "
@@ -102,7 +105,7 @@
               <div class="form">
                 <input
                   type="text"
-                  id="semester"
+                  id="time"
                   class="form_input"
                   autocomplete="off"
                   placeholder=" "
@@ -115,7 +118,7 @@
                  <div class="form">
                 <input
                   type="text"
-                  id="semester"
+                  id="duration"
                   class="form_input"
                   autocomplete="off"
                   placeholder=" "

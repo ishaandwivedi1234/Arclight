@@ -8,17 +8,10 @@ function showHideSidebar() {
 }
 
 function initializeBody() {
-  // set question's row col value
-  setRowColValue();
   initQuestions();
-  setTimer();
+  // setRowColValue();
 
-  var sideBar = document.getElementById("side__menu");
-  if (sideBar.style.display === "none") {
-    sideBar.style.display = "block";
-  } else {
-    sideBar.style.display = "none";
-  }
+  // setTimer();
 }
 
 // timer logic
@@ -51,12 +44,12 @@ function setTimer() {
 
 function setRowColValue() {
   eel.clientResponse();
-  eel.setRowCol()(function (ret) {
-    col = ret[0];
-    row = ret[1];
-    number_of_question = ret[2];
-    let dones = ret[3];
-    let revisit = ret[4];
+  eel.getQuestionPannelInfo()(function (ret) {
+    col = ret["max_com"];
+    row = ret["max_row"];
+    number_of_question = ret["no_of_questions"];
+    let dones = ret["list_of_done"];
+    let revisit = ret["revisit"];
 
     console.log(dones);
     console.log(number_of_question);
@@ -74,10 +67,19 @@ function setRowColValue() {
           "/templates/student_dashboard.html" + "?question=" + question;
         // div.onclick = "changeQuestion(question)";
         // div.addEventListener("click", questionHandler.bind(question), false);
-        if (dones.includes(question)) div.className = "question__block__done";
-        else if (revisit.includes(question))
-          div.className = "question__block__revisit";
-        else div.className = "question__block__pending";
+        if (question === getQuestionNumber()) {
+          if (dones.includes(question))
+            div.className = "question__active__block__done";
+          else if (revisit.includes(question))
+            div.className = "question__active__block__revisit";
+          else div.className = "question__active__block__pending";
+        } else {
+          if (dones.includes(question)) div.className = "question__block__done";
+          else if (revisit.includes(question))
+            div.className = "question__block__revisit";
+          else div.className = "question__block__pending";
+        }
+
         div.id = "question_" + question;
         newRow.appendChild(div);
         question += 1;
@@ -90,26 +92,67 @@ function setRowColValue() {
 }
 
 function initQuestions() {
-  eel.initQuestions()(function (ret) {
-    questions = ret[0];
-    revisit = ret[3];
-    question_number = getQuestionNumber();
-    var questionText = document.getElementById("question_text");
-    questionText.innerHTML = questions[question_number];
+  console.log("initing question again");
+  eel.getExamQuestions()(function (ret) {
+    eel.getMcqResponse()(function (response) {
+      console.log(response);
 
-    var question_head = document.getElementById("question__number");
-    question_head.innerHTML = "Question " + parseInt(question_number + 1);
-    var revisit_head = document.getElementById("revisit");
-    if (revisit.includes(question_number + 1)) {
-      revisit_head.innerHTML = "Unmark Revisit";
-      revisit_head.addEventListener("click", unRevisit);
-    } else {
-      revisit_head.innerHTML = "Revisit";
-      revisit_head.addEventListener("click", setRevisit);
-    }
-    answers = ret[2];
-    var answerText = document.getElementById("answer_text");
-    answerText.value = answers[question_number];
+      questions = ret["questions"];
+      revisit = ret[3];
+      mcq_answers = ret[2];
+
+      question_number = getQuestionNumber();
+      console.log(question_number);
+
+      var thisQuestion;
+
+      questions.forEach(function (question) {
+        if (parseInt(question["question_no"]) === question_number) {
+          thisQuestion = question;
+        }
+      });
+
+      console.log(thisQuestion);
+      var questionText = document.getElementById("question_text");
+      questionText.innerHTML = thisQuestion["question_text"];
+
+      var question_head = document.getElementById("question__number");
+      question_head.innerHTML = "Question " + parseInt(question_number);
+      // option_1 is class for span containing option text
+
+      var option1 = document.getElementsByClassName("option_1")[0];
+      var option2 = document.getElementsByClassName("option_2")[0];
+      var option3 = document.getElementsByClassName("option_3")[0];
+      var option4 = document.getElementsByClassName("option_4")[0];
+
+      response.forEach(function (ans) {
+        if (parseInt(ans["question_no"]) === question_number) {
+          let option = ans["chosen_option"];
+          document.getElementById("option-" + option).checked = true;
+        }
+      });
+
+      option1.innerHTML = thisQuestion["option1"];
+      option2.innerHTML = thisQuestion["option2"];
+      option3.innerHTML = thisQuestion["option3"];
+      option4.innerHTML = thisQuestion["option4"];
+
+      option1.id = "option_1_" + question_number;
+      option2.id = "option_2_" + question_number;
+      option3.id = "option_3_" + question_number;
+      option4.id = "option_4_" + question_number;
+
+      var revisit_head = document.getElementById("revisit");
+      if (revisit.includes(question_number)) {
+        revisit_head.innerHTML = "Unmark Revisit";
+        revisit_head.addEventListener("click", unRevisit);
+      } else {
+        revisit_head.innerHTML = "Revisit";
+        revisit_head.addEventListener("click", setRevisit);
+      }
+    });
+
+    //set saved answers
   });
 }
 
@@ -135,7 +178,7 @@ function setRevisit() {
   location.reload();
 }
 function unRevisit() {
-  question_number = getQuestionNumber() + 1;
+  question_number = getQuestionNumber();
 
   eel.getDoneList()(function (doneList) {
     console.log("unrevisit");
@@ -164,7 +207,8 @@ function setOption() {
 function getQuestionNumber() {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const question_number = urlParams.get("question") - 1;
+  const question_number = urlParams.get("question") - 0;
+
   if (question_number == undefined) question_number = 0;
   return question_number;
 }
@@ -207,11 +251,56 @@ function nextQuestion() {
   console.log("next");
   eel.getQuestionList()(function (questions) {
     currenQuestion = getQuestionNumber();
-    next = currenQuestion + 2;
+    saveQuestion(currenQuestion);
+
+    next = currenQuestion + 1;
     if (next <= questions.length && next >= 1) {
       let url = "/templates/student_dashboard.html" + "?question=" + next;
       console.log(url);
       location.replace(url);
     } else alert("you have visited end !");
   });
+}
+
+function saveQuestion(question_no) {
+  let option1 = document.getElementById("option-1");
+  let option2 = document.getElementById("option-2");
+  let option3 = document.getElementById("option-3");
+  let option4 = document.getElementById("option-4");
+
+  let option_text1 = document.getElementById("option_1_" + question_no);
+  let option_text2 = document.getElementById("option_2_" + question_no);
+  let option_text3 = document.getElementById("option_3_" + question_no);
+  let option_text4 = document.getElementById("option_4_" + question_no);
+
+  var ans = null;
+  if (option1.checked) {
+    ans = {
+      question_no: question_no,
+      option: 1,
+      value: option_text1.innerHTML,
+    };
+  } else if (option2.checked) {
+    ans = {
+      question_no: question_no,
+      option: 2,
+      value: option_text2.innerHTML,
+    };
+  } else if (option3.checked) {
+    ans = {
+      question_no: question_no,
+      option: 3,
+      value: option_text3.innerHTML,
+    };
+  } else if (option4.checked) {
+    ans = {
+      question_no: question_no,
+      option: 4,
+      value: option_text4.innerHTML,
+    };
+  }
+
+  if (ans !== null) {
+    eel.saveMcqResponse(ans);
+  }
 }

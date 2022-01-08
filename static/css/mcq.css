@@ -12,7 +12,7 @@
   /* box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2); */
 }
 .wrapper .option {
-  background: #fff;
+  background: rgba(0, 0, 0, 0.15);
   height: 100%;
   width: 100%;
   display: flex;
@@ -22,7 +22,7 @@
   cursor: pointer;
   padding: 20px 10px;
   margin-top: 10px;
-  border: 1px solid lightgrey;
+  border: 0.02rem dotted lightgrey;
   transition: all 0.3s ease;
 }
 .wrapper .option .dot {
@@ -76,7 +76,7 @@ input[type="radio"] {
 
 .wrapper .option span {
   font-size: 1rem;
-  color: #808080;
+  color: #cac9c9;
 }
 /* ---------- */
 #option-1:checked:checked ~ .option-1 span,

@@ -9,9 +9,12 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <link rel="stylesheet" type="text/css" href="../css/stls.css" />
+    <script type="text/javascript" src="../js/personal.js"></script>
+    <script type="text/javascript" src="../eel.js"></script>
+
     <title>Personal Profile</title>
   </head>
-  <body class="back1">
+  <body class="back1" onload="initPersonalInfo()">
     <!-- Tabs -->
     <div class="section3">
       <div class="card back1">
@@ -146,9 +149,6 @@
 
         <!-- BUTTONS -->
         <div class="btns">
-          <div class="btn btn-dark bt1" onclick="location.href=''">
-            <center>Prev</center>
-          </div>
           <div
             class="btn btn-dark bt2"
             onclick="location.href='exam_detail.html'"
@@ -164,41 +164,40 @@
 
     <!--SCRIPT-->
     <script>
-          function mouseOver1() {
+      function mouseOver1() {
         var x = document.getElementById("txt1");
-          x.style.opacity = "1";
-          x.style.transition="0.3s";
-
-          }
-
-         function mouseOut1() {
-        var x = document.getElementById("txt1");
-          x.style.opacity = "0.3";
+        x.style.opacity = "1";
+        x.style.transition = "0.3s";
       }
 
-        function mouseOver2() {
-        var x = document.getElementById("txt2");
-          x.style.opacity = "1";
-          x.style.transition="0.3s";
-
-            var y=document.getElementById("line1");
-            y.style.background-color="#7289da";
-          }
-
-         function mouseOut2() {
-        var x = document.getElementById("txt2");
-          x.style.opacity = "0.3";
+      function mouseOut1() {
+        var x = document.getElementById("txt1");
+        x.style.opacity = "0.3";
       }
 
-        function mouseOver3() {
-        var x = document.getElementById("txt3");
-          x.style.opacity = "1";
-          x.style.transition="0.3s";
-          }
+      function mouseOver2() {
+        var x = document.getElementById("txt2");
+        x.style.opacity = "1";
+        x.style.transition = "0.3s";
 
-         function mouseOut3() {
+        var y = document.getElementById("line1");
+        y.style.backgroundColor = "#7289da";
+      }
+
+      function mouseOut2() {
+        var x = document.getElementById("txt2");
+        x.style.opacity = "0.3";
+      }
+
+      function mouseOver3() {
         var x = document.getElementById("txt3");
-          x.style.opacity = "0.3";
+        x.style.opacity = "1";
+        x.style.transition = "0.3s";
+      }
+
+      function mouseOut3() {
+        var x = document.getElementById("txt3");
+        x.style.opacity = "0.3";
       }
     </script>
   </body>

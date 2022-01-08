@@ -12,6 +12,15 @@ Furthermore, isolated extremely heavy falls may also bombard Assam and Meghalaya
 
 answers = ["","answer 2","","asnwer 4"]
 
+mcq_answers=[
+	# {
+	# 	"student_id":1,
+	# 	"question_no":1,
+	# 	"option":2,
+	# 	"value":"x"
+
+	# }
+]
 
 options=[
 	[
@@ -50,18 +59,52 @@ options=[
 ]
 
 
+mcq_questions = [
+	{
+		'question_no':1,
+		'question_text':'What is the question',
+		'option_1':'height is ok',
+		'option_2':'everything is ok',
+		'option_3':'not everything is ok',
+		'option_4':'all of the above'
+	},
+		{
+		'question_no':2,
+		'question_text':'What is the question2',
+		'option_1':'height is ok',
+		'option_2':'everything is ok',
+		'option_3':'not everything is ok',
+		'option_4':'all of the above'
+	},
+		{
+		'question_no':3,
+		'question_text':'What is the question3',
+		'option_1':'height is ok',
+		'option_2':'everything is ok',
+		'option_3':'not everything is ok',
+		'option_4':'all of the above'
+	},
+		{
+		'question_no':4,
+		'question_text':'What is the question4',
+		'option_1':'height is ok',
+		'option_2':'everything is ok',
+		'option_3':'not everything is ok',
+		'option_4':'all of the above'
+	}
+]
 
 time_of_exam = "23:15:00"
 student_name = "Ishaan Dwivedi"
 en_no = "191b130"
-number_of_questions=len(questions)
+number_of_questions=len(mcq_questions)
 max_col = 15
 max_row = number_of_questions // max_col
 if (number_of_questions % max_col) > 0 :
 	max_row = max_row + 1
 
-list_of_done = [1,3]
-revisit= [4]
+list_of_done = []
+revisit= []
 
 
 current_question  = 0
