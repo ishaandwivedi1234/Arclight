@@ -3,7 +3,7 @@
 .wrapper {
   display: block;
   /* background: transparent; */
-  height: 80px;
+  height: 100px;
   width: 100%;
   align-items: start;
   justify-content: space-around;
@@ -84,4 +84,8 @@ input[type="radio"] {
 #option-3:checked:checked ~ .option-3 span,
 #option-4:checked:checked ~ .option-4 span {
   color: #fff;
+}
+
+.option_1 {
+  padding: 10px;
 }

@@ -25,16 +25,18 @@
     <ul class="nav_head">
       <li>
         <a class="brand_logo">
-          <img
+          <!-- <img
             src="https://img.icons8.com/ios/50/ffffff/menu.png"
             width="15"
             height="13"
             alt=""
             onclick="showHideSidebar()"
-          />
+          /> -->
           <span class="brand"
-            ><img src="../assets/arclight_logo.png" height="40px" /> Exam
-            Portal</span
+            ><img src="../assets/arclight_logo.png" height="40px" /> 
+            <!-- Exam
+            Portal -->
+            </span
           >
         </a>
       </li>
@@ -56,7 +58,9 @@
             <div class="question_card">
               <div class="question_head_options">
                 <span class="question_heading" id="question__number"></span>
-                <span class="next_question" id ="revisit"> </span>
+                <button class="next_question" id ="revisit"> 
+
+                </button>
               </div>
               <br /><br />
               <div id="question_text"></div>
@@ -119,10 +123,10 @@
             
            <div>
 <div class="wrapper">
- <input type="radio" name="select" id = "option-1"  class="option__1" >
- <input type="radio" name="select" id = "option-2"class="option__2" >
- <input type="radio" name="select" id = "option-3"class="option__3">
- <input type="radio" name="select" id = "option-4"class="option__4">
+ <input type="radio" name="select" id = "option-1"  class="option__1" />
+ <input type="radio" name="select" id = "option-2" class="option__2" />
+ <input type="radio" name="select" id = "option-3" class="option__3"/>
+ <input type="radio" name="select" id = "option-4" class="option__4"/>
    <label for="option-1" class="option option-1">
      <div class="dot"></div>
       <span class ="option_1" > </span>
@@ -148,6 +152,9 @@
 </div><br><br><br><br><br><br><br><br><br><br><br>
 <button class="option_btn mt-5" onclick="nextQuestion()" id="next">
                     Save & Next
+                  </button>
+                  <button class="finish_btn mt-5" onclick="" id="finish">
+                    Finish Test
                   </button>
            </div>
                 <!-- <textarea

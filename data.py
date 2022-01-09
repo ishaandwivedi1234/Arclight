@@ -104,7 +104,8 @@ if (number_of_questions % max_col) > 0 :
 	max_row = max_row + 1
 
 list_of_done = []
-revisit= []
+revisited= []
+
 
 
 current_question  = 0

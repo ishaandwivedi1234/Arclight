@@ -48,3 +48,7 @@ class LocalStorage:
             allExamQuestions.append(examQuestions)
 
         return allExamQuestions
+
+################# Static final data ##########################
+
+
