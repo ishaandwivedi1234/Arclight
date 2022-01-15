@@ -1,9 +1,11 @@
 from data import * 
-from static.modules.db import db
-from static.modules.examHelper import ExamHelper
-from static.modules.localStorage import LocalStorage
-from static.modules.loginStudent import *
-from static.modules.questionPannel import QuestionPannel
+from modules_student.db import staticData
+from modules_student.examHelper import ExamHelper
+from modules_student.localStorage import LocalStorage
+from modules_student.loginStudent import *
+from modules_student.questionPannel import QuestionPannel
+import eel
+import eel.browsers
 
 
 
@@ -13,22 +15,18 @@ localStorage = LocalStorage()
 questionPannel = QuestionPannel()
 
 
-
-def initProject():
-	db.getMcqQuestions()
-
-
 eel.init("static")  
 
 @eel.expose
 def setTimer():
 	return month,day,year,time
 
-eel.start( 'templates/login.html')
+
+eel.start('templates/splashscreen.html', suppress_error=True, port=3000,host='localhost',disable_cache=True, )
 
 # eel.start( 'templates/student_dashboard.html?question=1',block=False)
 # eel.start( 'templates/ExamPortal/student_dashboard.html',jinja_templates='templates',block=False)
 # eel.start( 'templates/ExamPortal/student_dashboard.html',jinja_templates='templates',block=False)
 
-while True:
+while staticData.AppRunning:
 	eel.sleep(1.0)

@@ -1,6 +1,6 @@
 
 import eel
-from static.modules.db import db as DB
+from modules_student.db import db as DB
 class StudentAuth:
     database = DB
 

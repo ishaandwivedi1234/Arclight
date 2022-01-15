@@ -1,0 +1,145 @@
+body {
+  background-color: #2c2f33;
+}
+.back1 {
+  background-color: #23272a;
+}
+.nav-card {
+  border: none;
+  margin: 0px auto;
+  display: flex;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.full-card{
+  width: 95%;
+  border-radius: 10px;
+  margin: 40px auto;
+  background-color: rgb(90, 90, 109);
+}
+
+.c1 {
+  border: none;
+  background-color: #23272a;
+  height: 50px;
+  border-radius: 0px;
+  width: 17%;
+}
+.c2 {
+  height: 50px;
+  width: 63%;
+  border: none;
+  background-color: #23272a;
+  flex-direction: row;
+  border-radius: 0px;
+}
+.c3 {
+  height: 50px;
+  width: 20%;
+  border: none;
+  background-color: #23272a;
+  border: none;
+  flex-direction: row;
+  border-radius: 0px;
+}
+
+.col3 {
+  width: 20%;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 0px;
+  background-color: #303031;
+}
+.time_div {
+  height: 35px;
+  margin: 6px;
+}
+#time {
+  font-size: 17px;
+  padding: 5px;
+  text-align: center;
+  font-weight: 700;
+  color: white;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+}
+
+.icon_pack {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  margin: 3px;
+}
+
+.icon_pack2 {
+  display: flex;
+  margin: 3px;
+}
+
+#search-input {
+  margin-top: 10px;
+  margin-left: 6px;
+  height: 30px;
+  border-radius: 3px;
+  border: none;
+  background-color: #2c2f33;color: white;
+  outline: none;
+}
+#search-input:focus {
+  outline:none !important;
+}
+
+.logo-img{width: 50px; padding: 10px;}
+img {
+  width: 28px;
+  font-size: 2px;
+}
+.st_count {
+  font-size: 17px;
+  padding: 5px;
+  font-weight: 700;
+  color: rgb(216, 212, 212);
+  font-family: sans-serif;
+}
+.total_count {
+  margin-left: 55px;
+  letter-spacing: 1px;
+}
+
+#list {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+}
+.student_name {
+  color: white;
+  letter-spacing: 0.8px;
+}
+.name-div {
+  margin-left: 10px;
+}
+
+.student_list {
+  overflow: auto;
+  height: 700px;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+li {
+  display: flex;
+  opacity: 0.6;
+  padding: 13px;
+}
+li:hover {
+  background-color: rgb(66, 66, 66);
+  cursor: pointer;
+  opacity: 1;
+}
+.bi{color: rgb(184, 184, 184);font-size: 25px;}
+.bi:hover{color: rgb(224, 221, 221);}
+.btn{margin-top: -5px;}
+.st_icon{margin-top:-10px;}

@@ -1,18 +1,18 @@
 from pymongo import MongoClient
-from static.models.mcq import ExamQuestions, Mcq
-from static.models.mcqResponse import McqResponse
-from static.models.student import Student
+from models_student.mcq import ExamQuestions, Mcq
+from models_student.mcqResponse import McqResponse
+from models_student.student import Student
 from datetime import date
 import time
-from static.models.exam import Exam
+from models_student.exam import Exam
 from data import max_col,max_row
-
+from bson.objectid import ObjectId
 conn_string ="mongodb+srv://arclight:Qwerty1234@cluster0.59liy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 class Database:
     def __init__(self):
         self.establishConnection()
         super().__init__()
-    conn_string = ''
+
  ##########################################################################################################################################
     def establishConnection(self):
         try:
@@ -35,7 +35,7 @@ class Database:
         try:
 
             exam = staticData.exam
-            print('👉🏻 Fetching question with exam id : ',exam.id)
+            # print('👉🏻 Fetching question with exam id : ',exam.id)
             data = self.mcqQuestionCollection.find_one({'exam_id':str(exam.id)})
             # data = self.mcqQuestionCollection.find_one({})
             # print(data)
@@ -136,19 +136,20 @@ class Database:
 
     def getExamInfo(self,student):
         todays_date = date.today()
-        todays_date = str(todays_date.day) + '-' + str(todays_date.month) + '-' + str(todays_date.year)
+        todays_date = todays_date.strftime("%Y-%m-%d")
+        # print(type(todays_date),'today date')
         current_time = time.time()
         print('👉🏻 current date : ',todays_date,' 📅')
         print('👉🏻 current time : ',current_time ,' ⏰')
         
         try:
             upcomming_exam  = self.examCollection.find_one({
-                'date':todays_date,
+                'date':str(todays_date),
             })
-            
+            # print(upcomming_exam,'upcomming')
             print('👉🏻 exam found : ',upcomming_exam['exam_name'],' ✅')
-            
-            if upcomming_exam == None or not student.batch in upcomming_exam['batch'] :
+               
+            if upcomming_exam == None  or todays_date!=upcomming_exam['date'] :
             # or str(current_time) < str(upcomming_exam['time'])
                 return {'exam':False}
             else:
@@ -160,7 +161,9 @@ class Database:
                     time=upcomming_exam['time'],
                     batch=upcomming_exam['batch'],
                     course_code=upcomming_exam['course_code'],
-                    duration=upcomming_exam['duration']
+                    duration=upcomming_exam['duration'],
+                    end_time=upcomming_exam['end_time'],
+                    submitted=upcomming_exam['submitted']
                    )
                 staticData.addExam(exam)
 
@@ -174,6 +177,8 @@ class Database:
                     'batch':exam.batch,
                     'course_code':exam.course_code,
                     'duration':exam.duration,
+                    'end_time':exam.end_time,
+                    'submitted':exam.submitted
                     
                     
                 }
@@ -195,6 +200,13 @@ class Database:
             # data = self.mcqResponseCollection.find_one()
             data = self.mcqResponseCollection.find({'student_id':str(student.id),'exam_id':str(exam.id)})
             # print(data)
+            info= { 
+                        'mcqResponse':[],
+                        'revisited':staticData.revisited,
+                        'list_of_done':staticData.list_of_done,
+                        'max_col':max_col,
+                        'max_rows':max_row
+                    }
             if data != None:
                 mcqResponse = []
                 mcqResponseObject =[]
@@ -224,13 +236,8 @@ class Database:
                     for question in mcqResponseObject:
                         staticData.addDoneQuestion(question_no=question['question_no'])
 
-                    info= { 
-                        'mcqResponse':mcqResponseObject,
-                        'revisited':staticData.revisited,
-                        'list_of_done':staticData.list_of_done,
-                        'max_col':max_col,
-                        'max_rows':max_row
-                    }
+                    info['mcqResponse'] =mcqResponseObject
+                    
 
                 staticData.addResponseList(mcqResponse)
                 # print(mcqResponseObject)
@@ -277,6 +284,55 @@ class Database:
             
 
  ##########################################################################################################################################
+ 
+    def endExam(self):
+        try:
+            exam_id = staticData.exam.id
+            # print(exam_id)
+            exam = self.examCollection.find_one({'_id':exam_id})
+            if exam != None:
+                # print(exam)
+                
+                alreadySumbitted = exam['submitted']
+                # print(alreadySumbitted)
+                alreadySumbitted.append(str(staticData.student.id))
+                updated_data  = {
+                   
+                    '_id': exam['_id'],
+                     'exam_name': exam['exam_name'],
+                      'date':  exam['date'],
+                       'time':  exam['time'],
+                        'end_time':  exam['end_time'],
+                         'batch':  exam['batch'],
+                          'course_code':  exam['course_code'],
+                           'year':  exam['year'],
+                            'branch':  exam['branch'], 
+                            'duration':  exam['duration'],
+                             'faculty_id':  exam['faculty_id'], 
+                             'submitted': alreadySumbitted
+                }
+                   
+                self.examCollection.update_one({'_id':ObjectId(exam_id)},{"$set":updated_data}, upsert=True)
+                # print('updated submitted')
+                print('👉🏻 Submitted & ended the exam: Closing mainapp...  ✅')
+
+
+                return True
+        except Exception as e:
+
+            print('End Exam: ',e,'❌')
+            return False
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ##########################################################################################################################################
 
 class StaticData:
     def __init__(self):
@@ -286,6 +342,7 @@ class StaticData:
         self.responseList = None
         self.revisited = []
         self.list_of_done=[]
+        self.AppRunning = True
         pass
 
     def addToRevisited(self,question_no):

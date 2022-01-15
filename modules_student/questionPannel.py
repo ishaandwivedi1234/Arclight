@@ -1,5 +1,6 @@
-from static.modules.db import db,staticData
+
 import eel
+from modules_student.db import staticData
 class QuestionPannel :
     def __init__(self) -> None:
         pass

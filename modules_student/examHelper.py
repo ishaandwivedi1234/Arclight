@@ -1,7 +1,7 @@
 import eel
-from static.models.exam import Exam
-from static.modules.db import db,staticData
-
+from models_student.exam import Exam
+from modules_student.db import db,staticData
+from datetime import datetime,timedelta
 
 class ExamHelper:
 
@@ -44,8 +44,23 @@ class ExamHelper:
 
     
     
+    @staticmethod
+    @eel.expose()
     
+    def stopApp():
+       ExamHelper.staticData.AppRunning = False
 
+    
+    @staticmethod
+    @eel.expose()
+    
+    def getFinishingInfo():
+      info = {
+        'solved':len(ExamHelper.staticData.responseList),
+        'revisited':len(ExamHelper.staticData.revisited),
+        'total':ExamHelper.staticData.examQuestion.no_of_questions
+      }
+      return info
 
     @staticmethod
     @eel.expose
@@ -53,6 +68,7 @@ class ExamHelper:
       if staticData.revisited.count(question_no) == 0 :
         staticData.addToRevisited(question_no)
         print('👉🏻 quesion no ',question_no,' marked revisit 🟡 ')
+
 
     @staticmethod
     @eel.expose
@@ -69,35 +85,41 @@ class ExamHelper:
     
       for question  in staticData.examQuestion.list_of_question:
         if str(question.question_no) == str(question_no):
-          print('exam qustion found ')
+          # print('exam qustion found ')
 
           thisQuestion = question
           question_id = thisQuestion.question_id
           ExamHelper.database.saveMcqResoonse(question_id=question_id,chosen_option=chosen_option,question_no=question_no)
           return
           
+    @staticmethod
+    @eel.expose
+    def endExam():
+      # print('ending exam')
+      return ExamHelper.database.endExam()
+      
+    @staticmethod
+    @eel.expose
+    def getTimeData():
+      date = ExamHelper.staticData.exam.date
+      time = ExamHelper.staticData.exam.time
+      # print(time)
+      # print(date)
+      dateComponent = date.split('-')
+      day = dateComponent[2]
+      month = dateComponent[1]
+      year = dateComponent[0]
+      end_time = ExamHelper.staticData.exam.end_time
+      # print(end_time)
+
+      return {
+        'date':date,
+        'month':month,
+        'day':day,
+        'year':year,
+        'time_of_end':end_time
+      }
       
       
       
-      
-      
-      
-      
-#  _id
-# :
-# 61d92851400cb4b882ee5b44
-# student_id
-# :
-# "61d5eb0e454c11e44301ca44"
-# question_id
-# :
-# "61d929a5400cb4b882ee5b46"
-# question_no
-# :
-# "2"
-# exam_id
-# :
-# "61d5ebac454c11e44301ca45"
-# chosen_option
-# :
-# "2"
+  

@@ -4,7 +4,7 @@
 
 function initializeBody() {
   initQuestions();
-  // setTimer();
+  setTimer();
 }
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 //----------------------------|Setting questions,options & qustion pannel |----------------------------------------------------//
@@ -54,10 +54,10 @@ function initQuestions() {
               div.className = "question__active__block__revisit";
             else div.className = "question__active__block__pending";
           } else {
-            if (dones.includes(question.toString()))
-              div.className = "question__block__done";
-            else if (revisit.includes(question))
+            if (revisit.includes(question))
               div.className = "question__block__revisit";
+            else if (dones.includes(question.toString()))
+              div.className = "question__block__done";
             else div.className = "question__block__pending";
           }
 
@@ -141,6 +141,9 @@ function initQuestions() {
       if (parseInt(number_of_question) === parseInt(question_number)) {
         document.getElementById("next").style.display = "none";
         document.getElementById("finish").style.display = "block";
+        document
+          .getElementById("finish")
+          .addEventListener("click", saveAndFinish);
       }
     });
 
@@ -227,11 +230,15 @@ function getQuestionNumber() {
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 function setTimer() {
-  eel.setTimer()(function (ret) {
-    month = ret[0];
-    day = ret[1];
-    year = ret[2];
-    time = ret[3];
+  eel.getTimeData()(function (timedata) {
+    month = timedata["month"];
+    day = timedata["day"];
+    year = timedata["year"];
+    time = timedata["time_of_end"];
+    console.log(time);
+    console.log(month);
+    console.log(day);
+    console.log(year);
 
     var countDownDate = new Date(`${month} ${day},${year} ${time}`).getTime();
     var x = setInterval(function () {
@@ -320,6 +327,39 @@ function nextQuestion() {
   });
 }
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
+//----------------------------|⏰ FINISH TEST AND TIMEOUT ⏰ |--------------------------------------------------------//
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+function saveAndFinish() {
+  eel.getFinishingInfo()(function (info) {
+    document.getElementsByClassName("notification")[0].style.display = "flex";
+    var total_question = document.getElementById("total_question");
+    var solved = document.getElementById("solved");
+    var revisited_question = document.getElementById("revisited_question");
+    console.log(info);
+    total_question.innerHTML = info["total"];
+    solved.innerHTML = info["solved"];
+    revisited_question.innerHTML = info["revisited"];
+  });
+}
+
+function closeNotification() {
+  document.getElementsByClassName("notification")[0].style.display = "none";
+}
+
+function saveSubmitAndExit() {
+  console.log("submitting");
+  saveResponse(getQuestionNumber());
+  eel.endExam()(function (isSubmitted) {
+    if (isSubmitted === true) {
+      location.replace("/templates/end.html");
+    } else {
+      alert("error submitting !");
+    }
+  });
+}
+
 function saveResponse(question_no) {
   let option1 = document.getElementById("option-1");
   let option2 = document.getElementById("option-2");
@@ -362,7 +402,7 @@ function saveResponse(question_no) {
     console.log(ans);
 
     eel.saveMcqResponse(question_no, ans["option"]);
-  }
+  } else;
 }
 
 // function setRowColValue() {

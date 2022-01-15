@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" type="text/css" href="/css/question_form.css" />
+  
+  <link rel="stylesheet" type="text/css" href="/css/loading.css"/>
+  <!--SCRIPT-->
+  <script type="text/javascript" src="../eel.js"></script>
+  <script src="../js/facultyJS/question_form.js"></script>
+
+  <title>Sidebar</title>
+</head>
+
+<body>
+
+
+
+  <div class="notification_wrapper">
+    <div class="notification">
+      <div class="push_bg" id="push_nort">
+        <div class="push_notify">
+          <div id="nort_text"></div>
+          <button type="close" onclick="closeNort()">close</button>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="main_content">
+      <div class="BLOCK">
+        <div class="img_block" style="background-color:#3f57ae;width: 30%;">
+          <img src="../assets/main_image_red.png" alt="image" style="width: 323px;margin-top: 64%;heigth: 200px;">
+        </div>
+        <div class="block" id="form">
+          <div class="form-group">
+            <p style="opacity:0.7;color:#7289DA ;font-size:15px">Objective Type Question</p>
+            <p style="color:#7289DA ;margin-top:-15px;font-size:20px">Write Question</p>
+            <textarea class="form-control1" id="question" placeholder="Enter Question"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Enter Options</label>
+            <input type="text" class="form-control-option" id="option1" placeholder="Enter Option 1"
+              rows="3"></input><br>
+            <input type="text" class="form-control-option" id="option2" placeholder="Enter Option 2"
+              rows="3"></input><br>
+            <input type="text" class="form-control-option" id="option3" placeholder="Enter Option 3"
+              rows="3"></input><br>
+            <input type="text" class="form-control-option" id="option4" placeholder="Enter Option 4"
+              rows="3"></input><br>
+          </div>
+
+          <div class="form-group">
+            <label>Select Correct Option</label>
+            <select class="form-control" id="option_select" style="width:95%">
+              <option id="op0" disabled selected style="opacity:0.3 !important"><span id="default">Choose Correct
+                  Option</span></option>
+              <option id="op1" value='1'>1</option>
+              <option id="op2" value='2'>2</option>
+              <option id="op3" value='3'>3</option>
+              <option id="op4" value='4'>4</option>
+            </select>
+          </div>
+          <div class="buttons">
+            <button onclick="addQuestion()"  id="addQuestion" type="addQuestion">Add Question</button>
+            <div class="loader">
+
+<div class="ld ld-spinner ld-spin" id="loader"
+     style="font-size:40px;color:#17a296;margin-right:20px">
+</div>
+            </div>
+
+            <button onclick="back()" type="back">Go Back</button>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</html>
+
+
+<!-- <div class="notification_wrapper">
+      <div  class="notification">
+        <div class="push_bg" id="push_nort">
+          <div class="push_notify" >
+            <div id="nort_text"></div>
+          <button type="close" onclick="closeNort()">close</button>
+          </div>
+        </div>
+    
+
+        
+      </div>
+      <div class="main_content">
+        <div
+          class="exam-cards-container container-fluid"
+          id="exam_section"
+        ></div>
+      </div>
+    </div> -->

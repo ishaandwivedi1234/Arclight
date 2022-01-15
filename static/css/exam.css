@@ -1,0 +1,138 @@
+body {
+  font-family: "Nunito", sans-serif;
+  background: rgba(218, 203, 203, 0.8);
+  /* backdrop-filter: blur(4px); */
+}
+.block {
+  width: 70%;
+  margin: auto;
+  /* background: rgba(58, 57, 57, 0.8); */
+  backdrop-filter: blur(4px);
+}
+
+.form-control1 {
+  width: 95%;
+  height: 80px;
+  border-radius: 8px;
+  padding: 8px;
+  margin-top: -10px;
+  margin-left: 10px;
+  background-color: rgb(172, 168, 168);
+}
+.form-control1:focus {
+  outline: none !important;
+}
+form-group {
+  display: block;
+}
+.form-control-option {
+  margin: 10px;
+  background-color: rgb(175, 180, 180);
+  color: black;
+  border-radius: 4px;
+  padding: 10px;
+  width: 95%;
+  border: none;
+}
+.form-control-option:focus {
+  outline: none !important;
+}
+::placeholder {
+  color: black;
+  opacity: 0.9; /* Firefox */
+}
+select {
+  margin-left: 10px;
+
+  color: black !important;
+}
+select:focus {
+  outline: 0 !important;
+}
+.form-control:focus {
+  outline: none !important;
+}
+.option {
+  padding: 10px 20px;
+  width: 50%;
+  border: 1px solid #7289da;
+  margin: 10px;
+  border-radius: 10px;
+  color: #ffffff;
+}
+.option4 {
+  border: 1px solid #6cf072;
+  color: #6cf072;
+}
+
+p {
+  color: #ffffff;
+}
+button {
+  border-radius: 7px;
+  border: none;
+  padding: 8px;
+  width: 135px;
+  background-color: #7289da;
+}
+button:hover {
+  background-color: rgb(18, 89, 243);
+  transition: 0.4s;
+  /* color: white; */
+}
+button:focus {
+  outline: none;
+}
+.button {
+  margin-left: 274px;
+}
+.input-search {
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  width: 450px;
+  background-color: #23272a;
+  color: #ffffff;
+}
+.fa-search{color: white;opacity: 0.3; margin-left: -30px; margin-top: 10px;}
+::placeholder {
+  color: #ffffff;
+  opacity: 0.3;
+}
+.input-search:focus {
+  outline: none;
+}
+.r1 {
+  display: flex;
+  width: 88%;
+  /* margin-top: 100px; */
+  margin: 35px auto;
+}
+.card-question {
+  margin: 0px 50px;
+  background-color: #23272a;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #7289da11;
+}
+
+label {
+  opacity: 1;
+  color: black;
+}
+
+.sections {
+  display: flex;
+}
+.section-1 {
+  width: 17%;
+  background-color: #23272a;
+}
+.section-2 {
+  width: 63%;
+  background-color: #2c2f33;
+}
+.section-3 {
+  width: 20%;
+  background-color: #23272a;
+}

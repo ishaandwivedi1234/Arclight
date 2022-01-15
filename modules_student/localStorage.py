@@ -1,6 +1,5 @@
 import eel
-from static.models.mcq import ExamQuestions
-from static.modules.db import staticData
+from modules_student.db import staticData
 class LocalStorage:
     staticData = staticData
     def __init__(self) -> None:
@@ -9,21 +8,25 @@ class LocalStorage:
     @staticmethod
     @eel.expose
     def getStudentFromLocalStorage():
-        savedStudent =LocalStorage.staticData.student
-        student  = {
-            'name': savedStudent.name,
-            'batch':savedStudent.batch,
-            'branch':savedStudent.branch,
-            'email':savedStudent.email,
-            'semester':savedStudent.semester,
-            'en':savedStudent.en,
-            'id':savedStudent.id
-        }
-        return student
+        try:
+            savedStudent =LocalStorage.staticData.student
+            student  = {
+                'name': savedStudent.name,
+                'batch':savedStudent.batch,
+                'branch':savedStudent.branch,
+                'email':savedStudent.email,
+                'semester':savedStudent.semester,
+                'en':savedStudent.en,
+                'id':savedStudent.id
+            }
+            return student
+        except Exception as e:
+            print(e)
 
     @staticmethod
     @eel.expose
     def getExamFromLocalStorage():
+
         savedExam = LocalStorage.staticData.exam
         exam = {
             'id':savedExam.id,
@@ -31,10 +34,12 @@ class LocalStorage:
             'exam_name':savedExam.exam_name,
             'date':savedExam.date,
             'time':savedExam.time,
+            'end_time':savedExam.end_time,
             'batch':savedExam.batch,
             'course_code':savedExam.course_code,
             'duration':savedExam.duration
         }
+        # print(exam)
         return exam
 
     @staticmethod
