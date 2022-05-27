@@ -1,24 +1,32 @@
-console.log(getExamId());
-
-function initializeBody() {
-  getExamQuestion();
-  getExamInfo();
+function initializeResultBody() {
+  getStudentResponse();
+  getExamResultInfo();
 }
 
-function getExamQuestion() {
-  exam_id = getExamId();
-  console.log("exam id  is ->");
-  console.log(exam_id);
-  eel.getExamQuestions(exam_id)(function (question) {
-    if (question["questions"].length === 0) {
-      console.log("no questions");
-      console.log(question);
-    } else {
-      var question_col = document.getElementById("question_col");
+function getStudentResponse() {
+  var exam_id = getExamId();
 
-      question["questions"].forEach((element, question_index) => {
-        console.log(element);
-        var question_div = buildAllQuestion(
+  eel.getAllStudentResult(exam_id)(function (results) {
+    var thisResult = undefined;
+
+    results.forEach(function (result) {
+      if (result["student_id"] === getStudentId()) {
+        thisResult = result;
+      }
+    });
+    console.log(thisResult);
+    if (thisResult !== undefined) {
+      var student_name = document.getElementById("student_name");
+      var student_en = document.getElementById("en_no");
+      student_en.value = thisResult["en_no"];
+      student_name.value = thisResult["student_name"];
+      var question_col = document.getElementById("question_col_result");
+
+      thisResult["question_response"].forEach(function (
+        element,
+        question_index
+      ) {
+        var question_div = buildAllQuestionResponse(
           question_index + 1,
           element["question_text"],
           element["option1"],
@@ -26,14 +34,26 @@ function getExamQuestion() {
           element["option3"],
           element["option4"],
           element["correct_option"].toString(),
-          element["question_id"]
+          element["question_id"],
+          element["chosen_option"],
+          element["is_correct"]
         );
-
         question_col.appendChild(question_div);
         console.log(question_col);
       });
+
+      //
     }
   });
+}
+
+function getStudentId() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const exam_id = urlParams.get("student_id");
+
+  if (exam_id == undefined) exam_id = 0;
+  return exam_id;
 }
 function getExamId() {
   const queryString = window.location.search;
@@ -44,7 +64,7 @@ function getExamId() {
   return exam_id;
 }
 
-function buildAllQuestion(
+function buildAllQuestionResponse(
   question_number,
   question_pText,
   option1Text,
@@ -52,10 +72,13 @@ function buildAllQuestion(
   option3Text,
   option4Text,
   correct_opt,
-  question_id
+  question_id,
+  chosen_option,
+  is_correct
 ) {
   //    <div class="card-question">
 
+  console.log(chosen_option, is_correct);
   console.log("question id is" + question_id);
   var card_question = document.createElement("div");
   card_question.className = "card-question";
@@ -98,8 +121,8 @@ function buildAllQuestion(
   editOpt.appendChild(editImg);
   editOpt.appendChild(editText);
 
-  sideOption.appendChild(deleteOpt);
-  sideOption.appendChild(editOpt);
+  //   sideOption.appendChild(deleteOpt);
+  //   sideOption.appendChild(editOpt);
 
   question_no.appendChild(sideOption);
   heading.appendChild(question_no);
@@ -144,11 +167,30 @@ function buildAllQuestion(
   option4.className = "option";
   option4.id = "option_4";
   option4.innerHTML = option4Text;
-  var color = "#00FA9A";
-  if (correct_opt === "1") option1.style.color = color;
-  else if (correct_opt === "2") option2.style.color = color;
-  else if (correct_opt === "3") option3.style.color = color;
-  else if (correct_opt === "4") option4.style.color = color;
+  var correct_color = "#00FA9A";
+  var incorrect_color = "red";
+  if (chosen_option !== "") {
+    chosen_option = parseInt(chosen_option);
+    if (correct_opt === "1" && chosen_option === 1)
+      option1.style.color = correct_color;
+    else if (correct_opt === "2" && chosen_option === 2)
+      option2.style.color = correct_color;
+    else if (correct_opt === "3" && chosen_option === 3)
+      option3.style.color = correct_color;
+    else if (correct_opt === "4" && chosen_option === 4)
+      option4.style.color = correct_color;
+    else {
+      if (chosen_option === 1) option1.style.color = incorrect_color;
+      else if (chosen_option === 2) option2.style.color = incorrect_color;
+      else if (chosen_option === 3) option3.style.color = incorrect_color;
+      else if (chosen_option === 4) option4.style.color = incorrect_color;
+
+      if (correct_opt === "1") option1.style.color = correct_color;
+      else if (correct_opt === "2") option2.style.color = correct_color;
+      else if (correct_opt === "3") option3.style.color = correct_color;
+      else if (correct_opt === "4") option4.style.color = correct_color;
+    }
+  }
 
   rightOptions.appendChild(option3);
   rightOptions.appendChild(option4);
@@ -158,7 +200,7 @@ function buildAllQuestion(
   return card_question;
 }
 
-function getExamInfo() {
+function getExamResultInfo() {
   var id = getExamId();
   console.log("getting exam info");
   eel.getExamById(id)(function (exam_info) {
@@ -174,10 +216,6 @@ function getExamInfo() {
       var end_time = exam_info["end_time"];
       var batches = exam_info["batch"];
 
-      var exam_name_feild = document.getElementById("exam_name");
-      if (exam_name_feild !== undefined) exam_name_feild.value = exam_name;
-      var course_code_div = document.getElementById("course_code");
-      if (course_code_div !== undefined) course_code_div.value = course_code;
       document.getElementById("year").value = year;
       document.getElementById("date").value = date;
       document.getElementById("branch").value = branch;
@@ -192,107 +230,38 @@ function getExamInfo() {
   });
 }
 
-function addQuestion() {
-  location.href = "question_form.html?exam_id=" + getExamId();
-}
-
-function deleteQuestion(id) {
-  console.log("deleteing question id : " + id);
-  var block_id = document.getElementById("block_id");
-  block_id.innerHTML = id;
-  var notification_blur_bg = document.getElementById("notificaion_modal");
-  notification_blur_bg.style.display = "block";
-  var nortifier = document.getElementsByClassName("notification_body_small")[0];
-  var notifier_text = document.getElementsByClassName("notification_text")[0];
-  notifier_text.innerHTML = "Are you sure ? You can't undo this action";
-  nortifier.style.display = "block";
-}
-
-function cancelDeteleOption() {
-  document.getElementById("notificaion_modal").style.display = "none";
-}
-function confirmDelete() {
-  console.log("examm");
-  var block_id = document.getElementById("block_id");
-  var question_id = block_id.innerHTML;
+function downloadSingleResponse() {
   var exam_id = getExamId();
-  eel.deleteQuestion(
-    exam_id,
-    question_id
-  )(function (response) {
-    console.log(response);
-    cancelDeteleOption();
-    location.reload();
+
+  eel.getAllStudentResult(exam_id)(function (results) {
+    var thisResult = undefined;
+
+    results.forEach(function (result) {
+      if (result["student_id"] === getStudentId()) {
+        thisResult = result;
+      }
+    });
+    var divContents = document.getElementById("question_col_result").innerHTML;
+    var a = window.open("", "", "height=500, width=500");
+    a.document.write("<html>");
+    a.document.write(
+      "<body > <h1>Student Result : " + thisResult["student_name"] + " <br>"
+    );
+    a.document.write(divContents);
+    a.document.write("</body></html>");
+    a.document.close();
+
+    a.print();
   });
 }
 
-function deleteExamConfirm() {
-  document.getElementById("delete_exam").style.display = "block";
-  document.getElementById("confirm").style.display = "none";
-  var notification_blur_bg = document.getElementById("notificaion_modal");
-  notification_blur_bg.style.display = "block";
-  var nortifier = document.getElementsByClassName("notification_body_small")[0];
-  var notifier_text = document.getElementsByClassName("notification_text")[0];
-  notifier_text.innerHTML =
-    "Are you sure ? Deleting exam will also delete saved questions and responses of students";
-  nortifier.style.display = "block";
-}
-function deleteExam() {
-  var exam_id = getExamId();
-  console.log("deleting exam");
-  eel.deleteExam(exam_id)((response) => {
-    if (response === true) {
-      location.replace("/faculty_templates/faculty_dashboard.html");
-    }
-  });
-}
-
-function goToEdit(question_id) {}
-
-function gotToDashboard() {
-  location.replace("/faculty_templates/faculty_dashboard.html");
-}
-
-function goToResult() {
-  var exam_id = getExamId();
-  location.href = "/faculty_templates/result.html?exam_id=" + exam_id;
-}
-
-function gotToQuestionScreen() {
-  var exam_id = getExamId();
-  location.href = "/faculty_templates/exam.html?exam_id=" + exam_id;
-}
-
-function goToResult() {
-  var exam_id = getExamId();
-  location.href = "/faculty_templates/result.html?exam_id=" + exam_id;
-}
-
-function downloadAllResponse() {
+function getSidePannelExam() {
   var id = getExamId();
   console.log("getting exam info");
   eel.getExamById(id)(function (exam_info) {
     console.log(exam_info);
     console.log("exam info is above");
     if (exam_info !== false) {
-      var exam_name = exam_info["exam_name"];
-      var course_code = exam_info["course_code"];
-      var year = exam_info["year"];
-      var branch = exam_info["branch"];
-      var date = exam_info["date"];
-      var start_time = exam_info["time"];
-      var end_time = exam_info["end_time"];
-      var batches = exam_info["batch"];
-
-      var divContents = document.getElementById("result").innerHTML;
-      var a = window.open("", "", "height=500, width=500");
-      a.document.write("<html>");
-      a.document.write("<body > <h1>Students Result : " + exam_name + " <br>");
-      a.document.write(divContents);
-      a.document.write("</body></html>");
-      a.document.close();
-
-      a.print();
     }
   });
 }

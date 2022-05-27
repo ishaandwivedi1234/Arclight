@@ -10,8 +10,6 @@ class Mcq:
         self.correct_option = correct_option
         
 
-        
-
 
 class ExamQuestions:
 

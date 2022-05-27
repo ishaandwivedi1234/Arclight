@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/calculator.css" />
+  <link rel="stylesheet" href="../css/mcq.css" />
+  <link rel="stylesheet" href="../css/student_subjective_dashboard.css" />
+  <script type="text/javascript" src="../eel.js"></script>
+  <script type="text/javascript" src="../js/student.js"></script>
+  <script type="text/javascript" src="../js/calculator.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</head>
+
+<body onload="initializeBody()">
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~!-->
+  <!-- --------------------------------------------| NEXT QUESTION / FINISH BUTTON |-------------------------!-->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+  <ul class="nav_head">
+    <li>
+      <a class="brand_logo">
+        <span class="brand"><img src="../assets/arclight_logo.png" height="40px" />
+        </span>
+      </a>
+    </li>
+    <li>
+      <span class="right_options">
+        <span id="timer"></span>
+      </span>
+    </li>
+  </ul>
+
+
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <!----------------------------------------------| QUESTION PANNEL WITH QUESTION NUMBER |-------------------->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+  <div class="notification_wrapper">
+
+    <div id="notificaion_modal" class="notification">
+      <div class="notification_body">
+
+        <p id="notification_title"></p>
+        <p id="finish_text">
+
+          <span class="finish_title">FINISH TEST</span>
+        <div class="finish_subtitle">You are about to finish the test</div>
+        <div class="verify"> Please verify your submission details before final submission</div>
+        <div class="row summary">
+          <div class="col-lg-4">
+            <div class="total_question" id="total_question">
+
+            </div>
+            <div class="summary_title">Total Question</div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="solved" id="solved">
+
+            </div>
+            <div class="summary_title">Solved Questions</div>
+          </div>
+          <div class="col-lg-4">
+            <div class="revisited" id="revisited_question"></div>
+            <div class="summary_title">Marked Revisited</div>
+          </div>
+          <div class="col-lg-4"></div>
+        </div>
+        <div class="final_btn">
+          <button id="cancel_btn" onclick="closeNotification()">Cancel</button>
+          <button id="final_submit" onclick="saveSubmitAndExit()">Submit & Exit</button>
+        </div>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="main_content">
+      <div class="content">
+        <div class="container dashboard__base">
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="question_card">
+                <div class="question_head_options">
+                  <span class="question_heading" id="question__number"></span>
+                  <button class="next_question" id="revisit">
+
+                  </button>
+                </div>
+                <br /><br />
+                <div id="question_text"></div>
+              </div>
+              <!-- timer countdown -->
+
+              <!-- answer section -->
+              <div class="container question_grid">
+                <div class="" id="question_cols"></div>
+              </div>
+            </div>
+            <!-- MCQ Answer Pannel -->
+            <div class="col-lg-5">
+              <div class="answer_card">
+                <!-- calculato, i btn  -->
+                <div class="row">
+                  <div class="answer_head col-lg-8">Write Answer</div>
+                 
+                </div>
+                <!-- end row -->
+
+                <div>
+                  <div class="wrapper">
+                    <!-- <input type="text" name="select" id="input-answer" placeholder="Write Your Answer here.." class=" input-answer input-answer" /> -->
+                    <textarea name="select" id="input-answer" placeholder="Write Your Answer here.."
+                      class=" input-answer input-answer"></textarea>
+                   
+                  </div>
+
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                  <!-- ------------------------------| NEXT QUESTION / FINISH BUTTON |----------------------------------------->
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+                </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <button class="option_btn mt-5" onclick="nextQuestion()" id="next">
+                  Save & Next
+                </button>
+                <button class="finish_btn mt-5" onclick="" id="finish">
+                  Finish Test
+                </button>
+              </div>
+              <div class="options">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>>
+</body>
+
+</html>

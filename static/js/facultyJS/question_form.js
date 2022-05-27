@@ -1,4 +1,37 @@
 console.log("loaded");
+
+
+/* 
+  For Navigating between questions type(mcq, sub)___________________________
+*/
+function openForm(quesType) {
+  console.log(quesType)
+  var mcqTabButton = document.getElementById("mcq-tab-button");
+  var subTabButton = document.getElementById("sub-tab-button");
+  var mcqForm = document.getElementById("mcq-form");
+  var subForm = document.getElementById("subjective-form");
+
+  if(quesType === 'mcq-form'){   
+    mcqTabButton.style.background = "#2c2f33";
+    subTabButton.style.background = "#23272a";
+    subForm.style.display = "none"
+    mcqForm.style.display = "block";
+    
+  } else if(quesType === 'subjective-form'){
+    subTabButton.style.background = "#2c2f33";
+    mcqTabButton.style.background = "#23272a";
+    subForm.style.display = "block"
+    mcqForm.style.display = "none";
+  }
+}
+/* 
+  For Navigating between questions type(mcq, sub)___________________________
+*/
+
+
+/*
+  For adding mcq question__________________________________________________
+*/
 function addQuestion() {
   var exam_id = getExamId();
   var question_text = document.getElementById("question").value;
@@ -82,6 +115,62 @@ function addQuestion() {
     addBtn.style.display = "block";
   });
 }
+/*
+  For adding mcq question__________________________________________________
+*/
+
+/*
+  For adding subjective question__________________________________________________
+*/
+function addSubjectiveQuestion() {
+  var exam_id = getExamId();
+  var subjective_question_text = document.getElementById("subjective-question").value;
+  var sample_answer_text = document.getElementById("sample-answer").value;
+  
+  if (subjective_question_text.length === 0) {
+    showError("Please provide question to continue");
+    return;
+  } else if (sample_answer_text.length === 0) {
+    showError("Please provide a sample answer");
+    return;
+  }
+
+  question_info = {
+    subjective_question_text: subjective_question_text,
+    sample_answer_text: sample_answer_text,
+  };
+  console.log(question_info);
+  var addBtn = document.getElementById("addSubjectiveQuestion");
+  addBtn.style.display = "none";
+  var loader = document.getElementById("loader");
+  loader.style.display = "block";
+
+  eel.addNewSubQuestion(
+    exam_id,
+    question_info
+  )(function (response) {
+    var success = response["success"];
+    var msg = response["msg"];
+    if (success == true) {
+      document.getElementById("subjective-question").value = "";
+      document.getElementById("sample-answer").value = "";
+      document.getElementById("push_nort").style.display = "block";
+      document.getElementById("nort_text").innerHTML =
+        msg + ". You can now add another question on this page only";
+    } else {
+      document.getElementById("push_nort").style.display = "block";
+      document.getElementById("nort_text").innerHTML = msg;
+    }
+    loader.style.display = "none";
+    addBtn.style.display = "block";
+  });
+}
+/*
+  For adding subjective question__________________________________________________
+*/
+
+
+
 
 function getExamId() {
   const queryString = window.location.search;

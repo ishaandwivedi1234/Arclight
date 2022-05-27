@@ -38,17 +38,18 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-link" aria-current="page" href="#">
-                    <button class="addexam-button" onclick="gotToDashboard()">
+              <button class="addexam-button" onclick="gotToDashboard()">
                 <i class="bi bi-back"></i> Back To Dashboard
-              </button> 
+              </button>
               <button class="addexam-button" onclick="deleteExamConfirm()">
                 <i class="bi bi-trash"></i>Delete Exam
               </button>
-                
-              <button class="addexam-button" onclick="addQuestion()">
-                <i class="bi bi-plus"></i>Add Question
-              </button>
-                
+              <button class="addexam-button" onclick="goToResult()">
+                <i class="bi bi-award"></i>View Result
+                <button class="addexam-button" onclick="addQuestion()">
+                  <i class="bi bi-plus"></i>Add Question
+                </button>
+
             </a>
           </div>
         </div>
@@ -60,7 +61,7 @@
   <div class="notification_wrapper">
     <div id="notificaion_modal" class="notification">
       <div class="push_bg">
-        
+
       </div>
       <div class="notification_body_small">
         <span class="notification_text"></span>
@@ -68,11 +69,11 @@
           <span id="block_id"></span>
           <button type="cancel" onclick="cancelDeteleOption()">cancel</button>
           <span class="not_close_btn">
-          <button type="confirm" id="confirm" onclick="confirmDelete()">Confirm</button>
-        </span>
-        <span class="not_close_btn">
-          <button type="deleteExam" id="delete_exam" onclick="deleteExam()">Delete anyway</button>
-        </span>
+            <button type="confirm" id="confirm" onclick="confirmDelete()">Confirm</button>
+          </span>
+          <span class="not_close_btn">
+            <button type="deleteExam" id="delete_exam" onclick="deleteExam()">Delete anyway</button>
+          </span>
         </div>
       </div>
     </div>
@@ -85,28 +86,27 @@
             <div class="info_type" name="first">General Information</div>
             <div class="fill-up-form mt-5 pl-2 pr-5">
               <div class="form">
-                <input type="text" id="exam_name" class="form_input" autocomplete="off" placeholder=" " value="please wait..."
-                   />
+                <input type="text" id="exam_name" class="form_input" autocomplete="off" placeholder=" "
+                  value="please wait..." />
                 <label for="name" class="form_label">Exam Name</label>
               </div>
               <br />
               <div class="form">
-                <input type="text" id="course_code" class="form_input" autocomplete="off" placeholder=" " value="please wait... "
-                   />
+                <input type="text" id="course_code" class="form_input" autocomplete="off" placeholder=" "
+                  value="please wait... " />
                 <label for="er_no" class="form_label">Course Code<label>
               </div>
               <br />
               <div class="row pl-1">
 
                 <div class="form_in_row ml-2">
-                  <input type="text" id="year" class="form_input" autocomplete="off" placeholder=" " value="ER_NO"
-                     />
+                  <input type="text" id="year" class="form_input" autocomplete="off" placeholder=" " value="ER_NO" />
                   <label for="course" class="form_label">Year </label>
                 </div>
 
                 <div class="form_in_row2">
-                  <input type="text" id="branch" class="form_input" autocomplete="off" placeholder=" " value="please wait..."
-                     />
+                  <input type="text" id="branch" class="form_input" autocomplete="off" placeholder=" "
+                    value="please wait..." />
                   <label for="semester" class="form_label">Branch</label>
                 </div>
 
@@ -115,12 +115,11 @@
             <div class="info_type" name="general">Date & Time Settings</div>
             <div class="fill-up-form mt-5 pl-2 pr-5">
               <div class="form">
-                <input type="date" id="date" class="form_input" autocomplete="off" placeholder=" " 
-                   />
+                <input type="date" id="date" class="form_input" autocomplete="off" placeholder=" " />
                 <label for="name" class="form_label">Date Of Exam</label>
               </div>
               <br />
-             
+
               <div class="row pl-1">
 
                 <div class="form_in_row ml-2">
@@ -130,138 +129,58 @@
                 </div>
 
                 <div class="form_in_row2">
-                  <input type="time" id="end_time" class="form_input" autocomplete="off" placeholder=" "
-                     />
+                  <input type="time" id="end_time" class="form_input" autocomplete="off" placeholder=" " />
                   <label for="semester" class="form_label">End Time</label>
                 </div>
 
               </div>
             </div>
             <div class="info_type" name="general">Edit Batches</div>
- <div class="batch_group">
-            <div
-              class="btn-group "
-              role="group"
-              aria-label="Basic checkbox toggle button group"
-            >
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck1"
-                autocomplete="off"
-                value="1"
+            <div class="batch_group">
+              <div class="btn-group " role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" value="1" />
+                <label class="btn btn-outline-primary" for="btncheck1">B1</label>
 
-              />
-              <label class="btn btn-outline-primary" for="btncheck1">B1</label>
+                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" value="2" />
 
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck2"
-                autocomplete="off"
-                value="2"
+                <label class="btn btn-outline-primary" for="btncheck2">B2</label>
 
-              />
-              
-              <label class="btn btn-outline-primary" for="btncheck2">B2</label>
+                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" value="3" />
+                <label class="btn btn-outline-primary" for="btncheck3">B3</label>
+                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" value="4" />
+                <label class="btn btn-outline-primary" for="btncheck4">B4</label>
+                <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off" value="5" />
+                <label class="btn btn-outline-primary" for="btncheck5">B5</label>
 
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck3"
-                autocomplete="off"
-                value="3"
-
-              />
-              <label class="btn btn-outline-primary" for="btncheck3">B3</label>
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck4"
-                autocomplete="off"
-                value="4"
-
-              />
-              <label class="btn btn-outline-primary" for="btncheck4">B4</label>
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck5"
-                autocomplete="off"
-                value="5"
-
-              />
-              <label class="btn btn-outline-primary" for="btncheck5">B5</label>
-              
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck6"
-                autocomplete="off"
-                value="6"
-
-              />
+                <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off" value="6" />
 
 
-              <label class="btn btn-outline-primary" for="btncheck6">B6</label>
+                <label class="btn btn-outline-primary" for="btncheck6">B6</label>
+              </div>
             </div>
-          </div>
 
-          <div class="batch_group">
-            <div
-              class="btn-group "
-              role="group"
-              aria-label="Basic checkbox toggle button group"
-            >
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck7"
-                autocomplete="off"
-                value="7"
-
-              />
-              <label class="btn btn-outline-primary" for="btncheck7">B7</label>
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck8"
-                autocomplete="off"
-                value="8"
-
-              />
-              <label class="btn btn-outline-primary" for="btncheck8">B8</label>
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck9"
-                autocomplete="off"
-                value="9"
-
-              />
-              <label class="btn btn-outline-primary" for="btncheck9">B9</label>
-              <input
-                type="checkbox"
-                class="btn-check"
-                id="btncheck10"
-                value="10"
-                autocomplete="off"
-              />
-              <label class="btn btn-outline-primary" for="btncheck10"
-                >B10</label
-              >
+            <div class="batch_group">
+              <div class="btn-group " role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck7" autocomplete="off" value="7" />
+                <label class="btn btn-outline-primary" for="btncheck7">B7</label>
+                <input type="checkbox" class="btn-check" id="btncheck8" autocomplete="off" value="8" />
+                <label class="btn btn-outline-primary" for="btncheck8">B8</label>
+                <input type="checkbox" class="btn-check" id="btncheck9" autocomplete="off" value="9" />
+                <label class="btn btn-outline-primary" for="btncheck9">B9</label>
+                <input type="checkbox" class="btn-check" id="btncheck10" value="10" autocomplete="off" />
+                <label class="btn btn-outline-primary" for="btncheck10">B10</label>
+              </div>
             </div>
-          </div>
           </div>
         </div>
         <div class="col-lg-9" id="question_col">
 
           <div class="col-lg-9" id="question_col">
 
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </body>
 
 </html>

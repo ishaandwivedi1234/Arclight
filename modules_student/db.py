@@ -1,12 +1,16 @@
+from os import stat
+from unicodedata import name
 from pymongo import MongoClient
 from models_student.mcq import ExamQuestions, Mcq
 from models_student.mcqResponse import McqResponse
+from models_student.result import Result
 from models_student.student import Student
 from datetime import date
 import time
 from models_student.exam import Exam
 from data import max_col,max_row
 from bson.objectid import ObjectId
+import json
 conn_string ="mongodb+srv://arclight:Qwerty1234@cluster0.59liy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 class Database:
     def __init__(self):
@@ -16,12 +20,12 @@ class Database:
  ##########################################################################################################################################
     def establishConnection(self):
         try:
-
             self.client = MongoClient(conn_string,tls=True,tlsAllowInvalidCertificates=True)
             self.mcqQuestionCollection = self.client.arclightDB.mcqQuestions
             self.studentCollection = self.client.arclightDB.students
             self.examCollection = self.client.arclightDB.exams
             self.mcqResponseCollection = self.client.arclightDB.mcqResponse
+            self.resultsCollection = self.client.arclightDB.mcqResults
 
             print('👉🏻 db connected ...📀')
 
@@ -36,7 +40,7 @@ class Database:
 
             exam = staticData.exam
             # print('👉🏻 Fetching question with exam id : ',exam.id)
-            data = self.mcqQuestionCollection.find_one({'exam_id':str(exam.id)})
+            data = self.mcqQuestionCollection.find_one({'exam_id':str(exam.id)}) 
             # data = self.mcqQuestionCollection.find_one({})
             # print(data)
             mcqs = []
@@ -44,7 +48,6 @@ class Database:
             if data != None:
                 for mcq in data['questions']:
                     thisMcq = Mcq(
-                        
                         question_no=mcq['question_no'],
                         question_text=mcq['question_text'],
                         option1=mcq['option1'],
@@ -64,8 +67,28 @@ class Database:
                         'option4':thisMcq.option4,
                         'correct_option':thisMcq.correct_option,
                         'question_id':thisMcq.question_id,
-                        
                     }
+                    thisResultQuestions = {
+                        'question_no':thisMcq.question_no,
+                        'question_text':thisMcq.question_text,
+                        'option1':thisMcq.option1,
+                        'option2':thisMcq.option2,
+                        'option3':thisMcq.option3,
+                        'option4':thisMcq.option4,
+                        'correct_option':thisMcq.correct_option,
+                        'question_id':str(thisMcq.question_id),
+                        'chosen_option':'',
+                        'is_correct':False,
+                        'response_count':0
+                    }
+                    hasAlready = False
+                    alreadySavedQuestionForResult = staticData.result.questionResponse 
+                    for qn in alreadySavedQuestionForResult: 
+                        if qn['question_no'] == thisResultQuestions['question_no']: 
+                            hasAlready = True 
+                    if not hasAlready : 
+                        staticData.result.questionResponse.append(thisResultQuestions)    
+
                     questions.append(thisQuestion)
                     mcqs.append(thisMcq)
 
@@ -90,6 +113,7 @@ class Database:
                 }
                 # print('👉🏻 exam question fetched & stored locally ✅')
                 # print(examJson)
+                # print(staticData.result.questionResponse)
                 return examJson
 
             else:
@@ -125,6 +149,14 @@ class Database:
                 )
                 staticData.addStudent(student=student)
 
+                result = Result(
+                    student_id=str(student.id),
+                    student_name=student.name,
+                    en_no=student.en,
+                    questionResponse=[],
+                    exam_id=''
+                )
+                staticData.addResult(result=result)
                 return True
             else: 
                 return False
@@ -150,7 +182,9 @@ class Database:
             print('👉🏻 exam found : ',upcomming_exam['exam_name'],' ✅')
                
             if upcomming_exam == None  or todays_date!=upcomming_exam['date'] :
+            # or str(current_time) < str(upcomming_exam['time']):
             # or str(current_time) < str(upcomming_exam['time'])
+                print('exam no exam ')
                 return {'exam':False}
             else:
                 exam = Exam(
@@ -166,6 +200,8 @@ class Database:
                     submitted=upcomming_exam['submitted']
                    )
                 staticData.addExam(exam)
+                staticData.result.exam_id=str(exam.id)
+
 
                 return {
                     'exam':True,
@@ -206,7 +242,7 @@ class Database:
                         'list_of_done':staticData.list_of_done,
                         'max_col':max_col,
                         'max_rows':max_row
-                    }
+                  }
             if data != None:
                 mcqResponse = []
                 mcqResponseObject =[]
@@ -253,7 +289,7 @@ class Database:
 
  ##########################################################################################################################################
    
-    def saveMcqResoonse(self,question_no,chosen_option,question_id):
+    def saveMcqResoonse(self,question_no,chosen_option,question_id,isCorrect):
         student  = staticData.student
         exam = staticData.exam
         # print('searching for : question Id : ',question_id)
@@ -270,14 +306,25 @@ class Database:
                     'question_no':str(question_no)
                 }
 
+
             if alreadySavedResponse == None:
                 self.mcqResponseCollection.insert_one(savedResponseData)
                 print('👉🏻 saved new response data...  ✅')
             else:
                 
+                
                 self.mcqResponseCollection.update_one(query,{"$set":savedResponseData}, upsert=True)
                 print('👉🏻 patched new response data... ✅')
-                
+
+            for qn in staticData.result.questionResponse:
+                if str(qn['question_no']) == str(question_no):
+                    qn['chosen_option'] = str(chosen_option)
+                    qn['is_correct']  = isCorrect
+                    qn['response_count'] = qn['response_count'] + 1
+                    print(qn)
+                    break
+
+
         except Exception as e:
 
             print('Save Mcq Response : ',e,'❌')
@@ -295,7 +342,13 @@ class Database:
                 
                 alreadySumbitted = exam['submitted']
                 # print(alreadySumbitted)
+                
                 alreadySumbitted.append(str(staticData.student.id))
+                # {
+                #     'student_name':student_name,
+                #     'en_no':en_no,
+                #     'mark_obtained':
+                # }
                 updated_data  = {
                    
                     '_id': exam['_id'],
@@ -309,9 +362,24 @@ class Database:
                             'branch':  exam['branch'], 
                             'duration':  exam['duration'],
                              'faculty_id':  exam['faculty_id'], 
-                             'submitted': alreadySumbitted
+                             'submitted': alreadySumbitted,
+                             'responses':[]
+                             
                 }
-                   
+
+                result = staticData.result
+                resultData = {
+
+                    'student_name':result.student_name,
+                    'en_no':result.en_no,
+                    'exam_id':result.exam_id,
+                    'student_id':result.student_id,
+                    'question_response':result.questionResponse
+                }
+                # print(resultData)
+
+
+                self.resultsCollection.insert_one(resultData)
                 self.examCollection.update_one({'_id':ObjectId(exam_id)},{"$set":updated_data}, upsert=True)
                 # print('updated submitted')
                 print('👉🏻 Submitted & ended the exam: Closing mainapp...  ✅')
@@ -322,15 +390,6 @@ class Database:
 
             print('End Exam: ',e,'❌')
             return False
-
-
- 
- 
- 
- 
- 
- 
- 
  
  ##########################################################################################################################################
 
@@ -342,6 +401,7 @@ class StaticData:
         self.responseList = None
         self.revisited = []
         self.list_of_done=[]
+        self.result = None
         self.AppRunning = True
         pass
 
@@ -364,8 +424,8 @@ class StaticData:
     def addResponseList(self,responseList):
         self.responseList = responseList
 
-
-
+    def addResult(self,result):
+        self.result = result
 
 db = Database()
 staticData = StaticData()

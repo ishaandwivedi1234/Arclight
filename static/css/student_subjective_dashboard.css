@@ -1,0 +1,19 @@
+.input-answer{
+    color: rgba(255, 255, 255, 0.748);
+    background: rgba(0, 0, 0, 0.15);
+    height: 430px;
+    width: 490px;
+    align-items: center;
+    margin: 0px -18px;
+    border-radius: 5px;
+    cursor: pointer;
+    /* padding: 20px 10px; */
+    /* font-size: 20px; */
+    margin-top: 10px;
+    border: 0.02rem dotted rgb(183, 182, 182);
+    transition: all 0.3s ease;
+}
+.input-answer:focus
+{
+    outline: none;
+}

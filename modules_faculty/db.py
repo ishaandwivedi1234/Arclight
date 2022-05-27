@@ -1,6 +1,7 @@
 from doctest import Example
 from os import stat
 import re
+from unittest import result
 from models_student.mcq import Mcq
 from pymongo import MongoClient
 from bson import ObjectId
@@ -25,6 +26,13 @@ class Database:
             self.examCollection = self.client.arclightDB.exams
             self.mcqResponseCollection = self.client.arclightDB.mcqResponse
             self.facultyCollection =self.client.arclightDB.faculty
+            self.resultsCollection = self.client.arclightDB.mcqResults
+
+
+            #####abhi
+            self.subjectiveQuestionCollection = self.client.arclightDB.subjectiveQuestions
+            
+
 
 
             print('👉🏻 db connected ...📀')
@@ -147,14 +155,16 @@ class Database:
            
             id=self.examCollection.insert_one(data)
             id=id.inserted_id 
+            
             questionData={
                 'exam_id':str(id),
                 'no_of_questions':'0',
-                'questions':[],
-                'submitted':[]
-                 }
+                'questions':[]
+                
+            }
 
             self.mcqQuestionCollection.insert_one(questionData)
+            self.subjectiveQuestionCollection.insert_one(questionData)
 
             staticData.examInfo.id = id
 
@@ -289,9 +299,60 @@ class Database:
                         'success':False,
                         'msg':e
                     }
+ ##########################################################################################################################################
  
- 
- 
+    def addSubjectiveQuestion(self, exam_id, exam_info):
+        try:
+            # print(exam_id,exam_info)
+            query  = { 'exam_id':str(exam_id)}
+
+            alreadySavedQuestion = self.subjectiveQuestionCollection.find_one(query)
+            if alreadySavedQuestion != None:
+                length= len(alreadySavedQuestion['questions'])  + 1
+                alreadySavedQuestion['questions'].append({
+                    'question_no':str(length),
+                    'subjective_question_text':exam_info['subjective_question_text'],
+                    'sample_answer_text':exam_info['sample_answer_text'] 
+                })
+
+                alreadySavedQuestion['no_of_questions'] =str(length)
+            
+
+                reponse = self.subjectiveQuestionCollection.update_one(query,{"$set":alreadySavedQuestion}, upsert=True)
+
+                if reponse != None:
+                    logI('addQuestion: added question')
+                    return {
+                        'success':True,
+                        'msg':'Question Added Successfully'
+                    }
+                    
+                else:
+                    logW('addQuestion: error in updating')
+                    return {
+                        'success':False,
+                        'msg':'Error adding question'
+                    }
+
+
+
+            else:
+
+                    logW('addQuestion: No question with id found while adding question')
+                    return {
+                        'success':False,
+                        'msg':'Oops! No exam found with this id'
+                    }
+                
+
+
+        except Exception as e :
+            logE('addQuestion: ')
+            logE(e)
+            return {
+                        'success':False,
+                        'msg':e
+                    }
  
  
  ##########################################################################################################################################
@@ -349,6 +410,31 @@ class Database:
         except Exception as e:
             print(e)
             return False
+
+
+
+
+
+    def getAllStudentResult(self,exam_id):
+
+        try:    
+            print(exam_id)
+
+            result = self.resultsCollection.find({'exam_id':str(exam_id)})
+            allStudentData = []
+            if result != None:
+                for studentResultData in result:
+                    allStudentData.append(studentResultData)
+            
+                return allStudentData
+
+            else:
+                logW('No result found, Exam might not be conducted ')
+
+
+        except Exception as E:
+            print(e)
+
 
 class StaticData:
     def __init__(self):

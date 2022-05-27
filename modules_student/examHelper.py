@@ -89,7 +89,8 @@ class ExamHelper:
 
           thisQuestion = question
           question_id = thisQuestion.question_id
-          ExamHelper.database.saveMcqResoonse(question_id=question_id,chosen_option=chosen_option,question_no=question_no)
+          isCorrect = int(thisQuestion.correct_option)==int(chosen_option)
+          ExamHelper.database.saveMcqResoonse(question_id=question_id,chosen_option=chosen_option,question_no=question_no,isCorrect=isCorrect)
           return
           
     @staticmethod

@@ -93,6 +93,11 @@ class FacultyHepler:
 
     @staticmethod
     @eel.expose
+    def addNewSubQuestion(exam_Id,questionInfo):
+        return FacultyHepler.database.addSubjectiveQuestion(exam_Id,questionInfo)
+
+    @staticmethod
+    @eel.expose
     def deleteQuestion(exam_id,question_id):
         return FacultyHepler.database.deleteQuestion(exam_id,question_id)
 
@@ -100,3 +105,11 @@ class FacultyHepler:
     @eel.expose
     def deleteExam(exam_id):
         return FacultyHepler.database.deleteExam(exam_id=exam_id)
+
+    @staticmethod
+    @eel.expose
+    def getAllStudentResult(exam_id):
+        return FacultyHepler.database.getAllStudentResult(exam_id=exam_id)
+
+
+        

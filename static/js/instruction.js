@@ -51,7 +51,8 @@ function startExam() {
     console.log(ampm);
 
     if (exam_m !== ampm) {
-      alert("Exam is not started yet !");
+      // alert("Exam is not started yet !");
+      location.replace("student_dashboard.html?question=1");
     } else if (exam_hr > curr_hour) {
       alert("Exam is not started yet !");
     } else {
